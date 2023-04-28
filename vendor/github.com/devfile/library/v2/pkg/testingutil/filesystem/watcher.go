@@ -1,3 +1,5 @@
+//go:build !js
+
 /*
 Copyright 2017 The Kubernetes Authors.
 
