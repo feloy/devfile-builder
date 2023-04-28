@@ -7,7 +7,7 @@
         </mat-form-field>
     </span>
     <button *ngIf="commands.length > 0" mat-icon-button (click)="addCommand()">
-        <mat-icon>add</mat-icon>
+        <mat-icon class="tab-icon material-icons-outlined">add</mat-icon>
     </button>                
     <button *ngIf="commands.length == 0" mat-flat-button (click)="addCommand()">{{addLabel}}</button>
 </div>

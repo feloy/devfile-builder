@@ -5,7 +5,7 @@
             <mat-label><span>Name</span></mat-label>
             <input matInput formControlName="name">
         </mat-form-field>
-        <mat-checkbox formControlName="parallel">Run commands in parallel</mat-checkbox>    
+        <div><mat-checkbox formControlName="parallel">Run commands in parallel</mat-checkbox></div>
         <app-multi-command formControlName="commands" addLabel="Add a command" [commandList]="commandList"></app-multi-command>
     </form>
 

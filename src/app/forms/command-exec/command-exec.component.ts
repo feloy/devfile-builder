@@ -45,4 +45,8 @@ export class CommandExecComponent {
   cancel() {
     this.canceled.emit();
   }
+
+  onProjectsRoot() {
+    this.form.controls['workingDir'].setValue('${PROJECTS_ROOT}');
+  }
 }

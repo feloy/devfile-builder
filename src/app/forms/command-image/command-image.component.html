@@ -5,7 +5,7 @@
             <mat-label><span>Name</span></mat-label>
             <input matInput formControlName="name">
         </mat-form-field>
-        <app-select-container formControlName="component" label="Image" [containers]="imageList"></app-select-container>
+        <div><app-select-container formControlName="component" label="Image" [containers]="imageList"></app-select-container></div>
     </form>
 
     <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Image Command" (click)="create()">Create</button>

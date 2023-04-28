@@ -1,11 +1,11 @@
 <div class="main">
     <h2>Add an Exec Command</h2>
     <form [formGroup]="form">
+        <div><mat-checkbox formControlName="hotReloadCapable">Hot Reload Capable</mat-checkbox></div>
         <mat-form-field appearance="outline" class="mid-width">
             <mat-label><span>Name</span></mat-label>
             <input matInput formControlName="name">
         </mat-form-field>
-        <mat-checkbox formControlName="hotReloadCapable">Hot Reload Capable</mat-checkbox>    
         <mat-form-field appearance="outline" class="mid-width">
             <mat-label><span>Command Line</span></mat-label>
             <input matInput formControlName="commandLine">
@@ -14,7 +14,8 @@
             <mat-label><span>Working Dir</span></mat-label>
             <input matInput formControlName="workingDir">
         </mat-form-field>
-        <app-select-container formControlName="component" label="Container" [containers]="containerList"></app-select-container>
+        <button mat-button (click)="onProjectsRoot()">Work on Project's Root Directory</button>
+        <div><app-select-container formControlName="component" label="Container" [containers]="containerList"></app-select-container></div>
     </form>
 
     <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Exec Command" (click)="create()">Create</button>
