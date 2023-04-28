@@ -27,9 +27,3 @@ div.nothing-here {
     margin: 0 4px 16px 4px;
     color: #00000054;
 }
-.aligned-with-icon {
-    position: absolute;
-    margin-top: 5px;
-    margin-left: 5px; /* optional */
-}
-  

@@ -26,32 +26,51 @@
                     </div>            
                 </mat-tab>
 
-                <mat-tab label="Metadata">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        Metadata
+                    </ng-template>
                     <app-metadata></app-metadata>
                 </mat-tab>
 
-                <mat-tab label="Commands">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon material-icons-outlined">code</mat-icon>
+                        Commands
+                    </ng-template>
                     <app-commands></app-commands>
                 </mat-tab>
 
-                <mat-tab label="Volumes">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon material-icons-outlined">storage</mat-icon>
+                        Volumes
+                    </ng-template>
                 </mat-tab>
 
-                <mat-tab label="Containers">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon material-icons-outlined">width_normal</mat-icon>
+                        Containers
+                    </ng-template>
                     <app-containers></app-containers>
                 </mat-tab>
 
-                <mat-tab label="Images">
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon material-icons-outlined">image</mat-icon>
+                        Images
+                    </ng-template>
                     <app-images></app-images>
                 </mat-tab>
 
-                <mat-tab label="Cluster Resources">
+                <mat-tab >
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon material-icons-outlined">description</mat-icon>
+                        Resources
+                    </ng-template>
                     <app-resources></app-resources>
                 </mat-tab>
-
-                <!--mat-tab label="Development Environments">
-                    <app-dev-env></app-dev-env>
-                </mat-tab-->
             </mat-tab-group>
         </div>      
 

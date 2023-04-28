@@ -43,7 +43,10 @@
                     </tr>
                     <tr>
                         <td>Container:</td>
-                        <td>{{command.exec?.component}}</td>
+                        <td><mat-chip disableRipple>
+                            <mat-icon matChipAvatar class="material-icons-outlined">width_normal</mat-icon>
+                            {{command.exec?.component}}
+                        </mat-chip></td>
                     </tr>
                 </table>
             </ng-container>
@@ -52,7 +55,10 @@
                 <table class="aligned">
                     <tr>
                         <td>Cluster resource:</td>
-                        <td>{{command.apply?.component}}</td>
+                        <td><mat-chip disableRipple>
+                                <mat-icon matChipAvatar class="material-icons-outlined">description</mat-icon>
+                                {{command.apply?.component}}
+                            </mat-chip></td>
                     </tr>
                 </table>
             </ng-container>
@@ -61,7 +67,10 @@
                 <table class="aligned">
                     <tr>
                         <td>Image:</td>
-                        <td>{{command.image?.component}}</td>
+                        <td><mat-chip disableRipple>
+                            <mat-icon matChipAvatar class="material-icons-outlined">image</mat-icon>
+                            {{command.image?.component}}
+                        </mat-chip></td>
                     </tr>
                 </table>
             </ng-container>
@@ -77,17 +86,13 @@
                     </tr>
                     <tr>
                         <td>Commands:</td>
-                            <td>
-                                <ng-container *ngIf="command.composite?.parallel">
-                                <div class="parallel-command" *ngFor="let command of command.composite?.commands">
-                                    <span class="command">{{command}}</span>
-                                </div>
-                            </ng-container>
-                            <div class="serial-commands" *ngIf="!command.composite?.parallel">
-                                <span class="command" *ngFor="let command of command.composite?.commands">
+                        <td>
+                            <mat-chip-set [class.mat-mdc-chip-set-stacked]="command.composite?.parallel">
+                                <mat-chip disableRipple *ngFor="let command of command.composite?.commands">
+                                    <mat-icon matChipAvatar class="material-icons-outlined">code</mat-icon>
                                     {{command}}
-                                </span>
-                            </div>            
+                                    </mat-chip>
+                            </mat-chip-set>
                         </td>
                     </tr>
                 </table>
