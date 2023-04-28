@@ -2,49 +2,96 @@
 <div class="nothing-here" *ngIf="!getCommandsByKind(commands, kind)?.length && kind == ''">No generic commands yet. New commands will appear here</div>
 <ng-container *ngFor="let command of commands">
     <mat-card cdkDrag [cdkDragDisabled]="dragDisabled" *ngIf="command.group == kind">
-        <mat-card-header>
-            <mat-card-title>{{command.name}}</mat-card-title>
-            <mat-card-subtitle *ngIf="command.type == 'exec'">Exec Command</mat-card-subtitle>
-            <mat-card-subtitle *ngIf="command.type == 'apply'">Apply Command</mat-card-subtitle>
-            <mat-card-subtitle *ngIf="command.type == 'image'">Image Command</mat-card-subtitle>
-            <mat-card-subtitle *ngIf="command.type == 'composite'">Composite Command</mat-card-subtitle>
+        <mat-card-header class="with-right-content colored-title">
+                <div class="space-between">
+                    <mat-card-title>
+                        {{command.name}}
+                    </mat-card-title>
+                    <mat-checkbox 
+                        *ngIf="command.group != ''" 
+                        [checked]="command.default" 
+                        (change)="toggleDefault($event, command.name, command.group)"
+                    >Default {{kind}} command</mat-checkbox>
+                </div>
+            <div>
+                <mat-card-subtitle *ngIf="command.type == 'exec'">Exec Command</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="command.type == 'apply'">Apply Command</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="command.type == 'image'">Image Command</mat-card-subtitle>
+                <mat-card-subtitle *ngIf="command.type == 'composite'">Composite Command</mat-card-subtitle>
+            </div>
         </mat-card-header>
 
         <mat-card-content>
-            <mat-checkbox 
-                *ngIf="command.group != ''" 
-                [checked]="command.default" 
-                (change)="toggleDefault($event, command.name, command.group)"
-            >Default {{kind}} command</mat-checkbox>
+            
 
             <ng-container *ngIf="command.type == 'exec'">
-                <div>Container: {{command.exec?.component}}</div>
-                <div>Command Line: {{command.exec?.commandLine}}</div>
-                <div>Working Directory: {{command.exec?.workingDir}}</div>
-                <div *ngIf="command.exec?.hotReloadCapable">Is Hot Reload Capable</div>
+                <table class="aligned">
+                    <tr>
+                        <td>Is Hot Reload Capable:</td>
+                        <td>
+                            <span *ngIf="command.exec?.hotReloadCapable">Yes</span>
+                            <span *ngIf="!command.exec?.hotReloadCapable">No</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Command Line:</td>
+                        <td><code>{{command.exec?.commandLine}}</code></td>
+                    </tr>
+                    <tr>
+                        <td>Working Directory:</td>
+                        <td><code>{{command.exec?.workingDir}}</code></td>
+                    </tr>
+                    <tr>
+                        <td>Container:</td>
+                        <td>{{command.exec?.component}}</td>
+                    </tr>
+                </table>
             </ng-container>
 
             <ng-container *ngIf="command.type == 'apply'">
-                <div>Cluster resource: {{command.apply?.component}}</div>
+                <table class="aligned">
+                    <tr>
+                        <td>Cluster resource:</td>
+                        <td>{{command.apply?.component}}</td>
+                    </tr>
+                </table>
             </ng-container>
 
             <ng-container *ngIf="command.type == 'image'">
-                <div>Image: {{command.image?.component}}</div>
+                <table class="aligned">
+                    <tr>
+                        <td>Image:</td>
+                        <td>{{command.image?.component}}</td>
+                    </tr>
+                </table>
             </ng-container>
 
             <ng-container *ngIf="command.type == 'composite'">
-                <div *ngIf="command.composite?.parallel">Commands executed in parallel</div>
-                <div *ngIf="!command.composite?.parallel">Commands executed serially</div>
-                <ng-container *ngIf="command.composite?.parallel">
-                    <div class="parallel-command" *ngFor="let command of command.composite?.commands">
-                        <span class="command">{{command}}</span>
-                    </div>
-                </ng-container>
-                <div class="serial-commands" *ngIf="!command.composite?.parallel">
-                    <span class="command" *ngFor="let command of command.composite?.commands">
-                        {{command}}
-                    </span>
-                </div>
+                <table class="aligned">
+                    <tr>
+                        <td>Scheduling:</td>
+                        <td>
+                            <div *ngIf="command.composite?.parallel">Commands executed in parallel</div>
+                            <div *ngIf="!command.composite?.parallel">Commands executed serially</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Commands:</td>
+                            <td>
+                                <ng-container *ngIf="command.composite?.parallel">
+                                <div class="parallel-command" *ngFor="let command of command.composite?.commands">
+                                    <span class="command">{{command}}</span>
+                                </div>
+                            </ng-container>
+                            <div class="serial-commands" *ngIf="!command.composite?.parallel">
+                                <span class="command" *ngFor="let command of command.composite?.commands">
+                                    {{command}}
+                                </span>
+                            </div>            
+                        </td>
+                    </tr>
+                </table>
+
             </ng-container>
 
         </mat-card-content>

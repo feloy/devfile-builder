@@ -1,3 +1,13 @@
+mat-card-header.with-right-content {
+    display: block;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 mat-card { margin-bottom: 16px; }
 mat-card-content { padding: 16px; }
 .command {
@@ -15,4 +25,11 @@ mat-card-content { padding: 16px; }
 }
 div.nothing-here {
     margin: 0 4px 16px 4px;
+    color: #00000054;
 }
+.aligned-with-icon {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /* optional */
+}
+  

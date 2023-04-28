@@ -1,13 +1,25 @@
 <div class="main">
     <mat-card *ngFor="let container of containers">
-        <mat-card-header>
+        <mat-card-header class="colored-title">
             <mat-card-title>{{container.name}}</mat-card-title>
             <mat-card-subtitle>Container</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            Image: {{container.image}}
-            <div *ngIf="container.command.length > 0">Command: {{container.command.join(" ")}}</div>
-            <div *ngIf="container.args.length > 0">Args: {{container.args.join(" ")}}</div>
+            <table class="aligned">
+                <tr>
+                    <td>Image:</td>
+                    <td><code>{{container.image}}</code></td>
+                </tr>
+                <tr *ngIf="container.command.length > 0">
+                    <td>Command:</td>
+                    <td><code>{{container.command.join(" ")}}</code></td>
+                </tr>
+                <tr *ngIf="container.args.length > 0">
+                    <td>Args:</td>
+                    <td><code>{{container.args.join(" ")}}</code></td>
+                </tr>
+            </table>
+
         </mat-card-content>
 
         <mat-card-actions>

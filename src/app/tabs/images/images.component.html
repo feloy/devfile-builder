@@ -1,15 +1,32 @@
 <div class="main">
     <mat-card *ngFor="let image of images">
-        <mat-card-header>
+        <mat-card-header class="colored-title">
             <mat-card-title>{{image.name}}</mat-card-title>
             <mat-card-subtitle>Image</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <div>Image Name: {{image.imageName}}</div>
-            <div>Build Args: {{image.args}}</div>
-            <div>Build Context: {{image.buildContext}}</div>
-            <div>Root Required: {{image.rootRequired}}</div>
-            <div>URI: {{image.uri}}</div>
+            <table class="aligned">
+                <tr>
+                    <td>Image Name:</td>
+                    <td><code>{{image.imageName}}</code></td>
+                </tr>
+                <tr>
+                    <td>Dockerfile URI:</td>
+                    <td><code>{{image.uri}}</code></td>
+                </tr>
+                <tr>
+                    <td>Build Args:</td>
+                    <td><code>{{image.args}}</code></td>
+                </tr>
+                <tr>
+                    <td>Build Context:</td>
+                    <td><code>{{image.buildContext}}</code></td>
+                </tr>
+                <tr>
+                    <td>Root Required:</td>
+                    <td><code>{{image.rootRequired ? "Yes" : "No"}}</code></td>
+                </tr>
+            </table>
         </mat-card-content>
 
         <mat-card-actions>
