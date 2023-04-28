@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,7 @@ export class SelectContainerComponent implements ControlValueAccessor {
   
   @Input() containers: string[] = [];
   @Input() label: string = "";
+  @Output() createNew = new EventEmitter<boolean>();
 
   container: string = "";
 
@@ -33,6 +34,11 @@ export class SelectContainerComponent implements ControlValueAccessor {
   registerOnTouched(_: any) {}
 
   onSelectChange(v: string) {
-    this.onChange(v);
+    if (v != "!") {
+      this.onChange(v);
+    } else {
+      console.log("new "+this.label+"!");
+    }
+    this.createNew.emit(v == "!");
   }
 }

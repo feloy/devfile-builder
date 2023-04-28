@@ -14,6 +14,7 @@ export class CommandExecComponent {
 
   form: FormGroup;
   containerList: string[] = [];
+  showNewContainer: boolean = false;
 
   constructor(
     private wasm: WasmGoService,
@@ -48,5 +49,9 @@ export class CommandExecComponent {
 
   onProjectsRoot() {
     this.form.controls['workingDir'].setValue('${PROJECTS_ROOT}');
+  }
+
+  onCreateNewContainer(v: boolean) {
+    this.showNewContainer = v;
   }
 }

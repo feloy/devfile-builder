@@ -15,8 +15,16 @@
             <input matInput formControlName="workingDir">
         </mat-form-field>
         <button mat-button (click)="onProjectsRoot()">Work on Project's Root Directory</button>
-        <div><app-select-container formControlName="component" label="Container" [containers]="containerList"></app-select-container></div>
+        <div>
+            <app-select-container 
+                formControlName="component" 
+                label="Container" 
+                [containers]="containerList"
+                (createNew)="onCreateNewContainer($event)"></app-select-container>
+        </div>
     </form>
+
+    <app-container *ngIf="showNewContainer"></app-container>
 
     <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Exec Command" (click)="create()">Create</button>
     <button mat-flat-button (click)="cancel()">Cancel</button>

@@ -26,13 +26,12 @@ export class CommandsComponent {
   }
 
   ngOnInit() {
-    const that = this;
     this.state.state.subscribe(async newContent => {
-      that.commands = newContent?.commands;
+      this.commands = newContent?.commands;
       if (this.commands == null) {
         return
       }
-      that.forceDisplayExecForm = false;
+      this.forceDisplayExecForm = false;
       this.forceDisplayApplyForm = false;
       this.forceDisplayCompositeForm = false;
     });
