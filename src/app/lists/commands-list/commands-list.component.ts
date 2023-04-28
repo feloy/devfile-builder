@@ -12,6 +12,7 @@ import { Command, WasmGoService } from 'src/app/services/wasm-go.service';
 export class CommandsListComponent {
   @Input() commands: Command[] | undefined;
   @Input() kind: string = "";
+  @Input() dragDisabled: boolean = true;
 
   constructor(
     private wasm: WasmGoService,

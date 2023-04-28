@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { StateService } from 'src/app/services/state.service';
 import { Command, WasmGoService } from 'src/app/services/wasm-go.service';
 
@@ -14,13 +14,16 @@ export class CommandsComponent {
   forceDisplayApplyForm: boolean = false;
   forceDisplayImageForm: boolean = false;
   forceDisplayCompositeForm: boolean = false;
+  enableDragAndDrop: boolean;
 
   commands: Command[] | undefined = [];
 
   constructor(
     private state: StateService,
     private wasm: WasmGoService,
-  ) {}
+  ) {
+    this.enableDragAndDrop = this.state.getDragAndDropEnabled();
+  }
 
   ngOnInit() {
     const that = this;
@@ -79,5 +82,9 @@ export class CommandsComponent {
   moveCommand(previousKind: string, newKind: string, previousIndex: number, newIndex: number) {
     const newDevfile = this.wasm.moveCommand(previousKind, newKind, previousIndex, newIndex);
     this.state.changeDevfileYaml(newDevfile);
+  }
+
+  enableDragAndDropChange() {
+    this.state.saveDragAndDropEnabled(this.enableDragAndDrop);
   }
 }

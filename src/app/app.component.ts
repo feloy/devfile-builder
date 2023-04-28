@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const devfile = localStorage.getItem("devfile");
+    const devfile = this.state.getDevfile();
     if (devfile != null) {
       this.onButtonClick(devfile);
     }
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
   }
 
   clear() {
-    localStorage.removeItem('devfile');
+    this.state.resetDevfile();
     window.location.reload();
   }
 }

@@ -16,4 +16,20 @@ export class StateService {
     localStorage.setItem("devfile", newValue.content);
     this._state.next(newValue);
   }
+
+  resetDevfile() {
+    localStorage.removeItem('devfile');
+  }
+
+  getDevfile(): string | null {
+    return localStorage.getItem("devfile");
+  }
+
+  getDragAndDropEnabled(): boolean {
+    return localStorage.getItem("dragAndDropEnabled") == "true";
+  }
+
+  saveDragAndDropEnabled(enabled: boolean) {
+    return localStorage.setItem("dragAndDropEnabled", enabled ? "true" : "false");
+  }
 }
