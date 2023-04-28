@@ -1,0 +1,26 @@
+<div class="main">
+    <mat-card *ngFor="let container of containers">
+        <mat-card-header>
+            <mat-card-title>{{container.name}}</mat-card-title>
+            <mat-card-subtitle>Container</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            Image: {{container.image}}
+            <div *ngIf="container.command.length > 0">Command: {{container.command.join(" ")}}</div>
+            <div *ngIf="container.args.length > 0">Args: {{container.args.join(" ")}}</div>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <button mat-button (click)="delete(container.name)">Delete</button>
+        </mat-card-actions>
+
+    </mat-card>
+
+    <app-container 
+        *ngIf="forceDisplayAdd || containers == undefined || containers.length == 0"
+        [cancelable]="forceDisplayAdd"
+        (canceled)="undisplayAddForm()"
+        ></app-container>
+    <button *ngIf="!forceDisplayAdd && containers != undefined && containers.length > 0" mat-flat-button (click)="displayAddForm()">Add a new container</button>
+
+</div>

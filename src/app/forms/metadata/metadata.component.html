@@ -1,0 +1,66 @@
+<div class="main">
+
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Version</mat-label>
+        <input matInput [formControl]="version">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Display Name</mat-label>
+        <input matInput [formControl]="displayName">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput [formControl]="description" rows="4"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Tags (comma-speparated)</mat-label>
+        <input matInput [formControl]="tags">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Architectures (comma-separated)</mat-label>
+        <input matInput [formControl]="architectures">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Icon</mat-label>
+        <input matInput [formControl]="icon">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Global Memory Limit</mat-label>
+        <input matInput [formControl]="globalMemoryLimit">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Project Type</mat-label>
+        <input matInput [formControl]="projectType">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Language</mat-label>
+        <input matInput [formControl]="language">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Website</mat-label>
+        <input matInput [formControl]="website">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="mid-width">
+        <mat-label>Provider</mat-label>
+        <input matInput [formControl]="provider">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Support URL</mat-label>
+        <input matInput [formControl]="supportUrl">
+    </mat-form-field>
+
+
+    <button mat-flat-button color="primary" (click)="onSave()">Save</button>
+</div>
