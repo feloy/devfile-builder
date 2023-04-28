@@ -46,4 +46,9 @@ export class ContainersComponent implements OnInit {
       }
     }
   }
+
+  onCreated(container: Container) {
+    const newDevfile = this.wasm.addContainer(container);
+    this.state.changeDevfileYaml(newDevfile);
+  }
 }

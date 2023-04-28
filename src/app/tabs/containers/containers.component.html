@@ -32,6 +32,7 @@
         *ngIf="forceDisplayAdd || containers == undefined || containers.length == 0"
         [cancelable]="forceDisplayAdd"
         (canceled)="undisplayAddForm()"
+        (created)="onCreated($event)"
         ></app-container>
     <button *ngIf="!forceDisplayAdd && containers != undefined && containers.length > 0" mat-flat-button (click)="displayAddForm()">Add a new container</button>
 

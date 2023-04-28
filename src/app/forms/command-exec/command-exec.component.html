@@ -24,7 +24,10 @@
         </div>
     </form>
 
-    <app-container *ngIf="showNewContainer"></app-container>
+    <app-container
+        *ngIf="showNewContainer"
+        (created)="onNewContainerCreated($event)"
+        ></app-container>
 
     <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Exec Command" (click)="create()">Create</button>
     <button mat-flat-button (click)="cancel()">Cancel</button>

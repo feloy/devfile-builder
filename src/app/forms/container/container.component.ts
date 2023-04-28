@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { StateService } from 'src/app/services/state.service';
-import { WasmGoService } from 'src/app/services/wasm-go.service';
-import { PATTERN_COMMAND_ID, PATTERN_CONTAINER_ID } from '../patterns';
+import { PATTERN_CONTAINER_ID } from '../patterns';
+import { Container } from 'src/app/services/wasm-go.service';
 
 @Component({
   selector: 'app-container',
@@ -12,13 +11,11 @@ import { PATTERN_COMMAND_ID, PATTERN_CONTAINER_ID } from '../patterns';
 export class ContainerComponent {
   @Input() cancelable: boolean = false;
   @Output() canceled = new EventEmitter<void>();
+  @Output() created = new EventEmitter<Container>();
 
   form: FormGroup;
 
-  constructor(
-    private wasm: WasmGoService,
-    private state: StateService,
-  ) {
+  constructor() {
     this.form = new FormGroup({
       name: new FormControl("", [Validators.required, Validators.pattern(PATTERN_CONTAINER_ID)]),
       image: new FormControl("", [Validators.required]),
@@ -28,8 +25,7 @@ export class ContainerComponent {
   }
 
   create() {
-    const newDevfile = this.wasm.addContainer(this.form.value);
-    this.state.changeDevfileYaml(newDevfile);
+    this.created.emit(this.form.value);
   }
 
   cancel() {
