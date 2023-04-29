@@ -18,7 +18,7 @@ describe('devfile editor spec', () => {
   it('displays matadata.name set in YAML', () => {
     cy.visit('http://localhost:4200');
     cy.clearDevfile();
-    cy.fixture('with-metadata-name.yaml').then(yaml => {
+    cy.fixture('input/with-metadata-name.yaml').then(yaml => {
       cy.setDevfile(yaml);
     });
 
@@ -29,7 +29,7 @@ describe('devfile editor spec', () => {
   it('displays container set in YAML', () => {
     cy.visit('http://localhost:4200');
     cy.clearDevfile();
-    cy.fixture('with-container.yaml').then(yaml => {
+    cy.fixture('input/with-container.yaml').then(yaml => {
       cy.setDevfile(yaml);
     });
 
@@ -55,7 +55,7 @@ describe('devfile editor spec', () => {
       .should('contain.text', 'an-image');
   });
 
-  it.only('displays a created image', () => {
+  it('displays a created image', () => {
     cy.visit('http://localhost:4200');
     cy.clearDevfile();
 
@@ -71,5 +71,19 @@ describe('devfile editor spec', () => {
       .should('contain.text', 'an-image-name')
       .should('contain.text', '/path/to/build/context')
       .should('contain.text', '/path/to/dockerfile');
+  });
+
+  it('displays a created resource', () => {
+    cy.visit('http://localhost:4200');
+    cy.clearDevfile();
+
+    cy.selectTab(TAB_RESOURCES);
+    cy.getByDataCy('resource-name').type('created-resource');
+    cy.getByDataCy('resource-manifest').type('a-resource-manifest');
+    cy.getByDataCy('resource-create').click();
+
+    cy.getByDataCy('resource-info').first()
+      .should('contain.text', 'created-resource')
+      .should('contain.text', 'a-resource-manifest');
   });
 });

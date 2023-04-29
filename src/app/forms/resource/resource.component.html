@@ -3,16 +3,16 @@
     <form [formGroup]="form">
         <mat-form-field appearance="outline" class="mid-width">
             <mat-label><span>Name</span></mat-label>
-            <input matInput formControlName="name">
+            <input data-cy="resource-name" matInput formControlName="name">
         </mat-form-field>
     
         <mat-form-field appearance="outline" class="full-width">
             <mat-label>YAML Manifest</mat-label>
-            <textarea matInput formControlName="inlined" rows="8"></textarea>
+            <textarea data-cy="resource-manifest" matInput formControlName="inlined" rows="8"></textarea>
         </mat-form-field>
     
     </form>
 
-    <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new resource" (click)="create()">Create</button>
+    <button data-cy="resource-create" [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new resource" (click)="create()">Create</button>
     <button *ngIf="cancelable" mat-flat-button (click)="cancel()">Cancel</button>
 </div>
