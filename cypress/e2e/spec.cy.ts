@@ -87,7 +87,7 @@ describe('devfile editor spec', () => {
       .should('contain.text', 'a-resource-manifest');
   });
 
-  it.only('creates an exec command with a new container', () => {
+  it('creates an exec command with a new container', () => {
     cy.visit('http://localhost:4200');
     cy.clearDevfile();
 

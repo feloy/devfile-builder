@@ -50,7 +50,7 @@ Cypress.Commands.add('setDevfile', (devfile: string) => {
 });
 
 Cypress.Commands.add('clearDevfile', () => {
-    cy.get('[data-cy="yaml-clear"]').click();
+    cy.get('[data-cy="yaml-clear"]', { timeout: 60000 }).click();
 });
 
 declare namespace Cypress {
