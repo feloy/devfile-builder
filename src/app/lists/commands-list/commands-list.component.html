@@ -1,7 +1,7 @@
 <div class="nothing-here" *ngIf="!getCommandsByKind(commands, kind)?.length && kind != ''">No {{kind}} commands yet. You can create a command then drag&drop it here</div>
 <div class="nothing-here" *ngIf="!getCommandsByKind(commands, kind)?.length && kind == ''">No generic commands yet. New commands will appear here</div>
 <ng-container *ngFor="let command of commands">
-    <mat-card cdkDrag [cdkDragDisabled]="dragDisabled" *ngIf="command.group == kind">
+    <mat-card data-cy="command-info" cdkDrag [cdkDragDisabled]="dragDisabled" *ngIf="command.group == kind">
         <mat-card-header class="with-right-content colored-title">
                 <div class="space-between">
                     <mat-card-title>

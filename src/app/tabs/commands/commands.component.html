@@ -50,9 +50,9 @@
     <app-command-composite (canceled)="undisplayCompositeForm()" *ngIf="forceDisplayCompositeForm"></app-command-composite>
 
     <ng-container *ngIf="!forceDisplayExecForm && !forceDisplayApplyForm && !forceDisplayImageForm && !forceDisplayCompositeForm">
-        <button mat-flat-button (click)="displayExecForm()">Add an Exec Command</button>
-        <button mat-flat-button (click)="displayApplyForm()">Add an Apply Command</button>
-        <button mat-flat-button (click)="displayImageForm()">Add an Image Command</button>
-        <button mat-flat-button (click)="displayCompositeForm()">Add a Composite Command</button>
+        <button data-cy="new-command-exec" mat-flat-button (click)="displayExecForm()">Add an Exec Command</button>
+        <button data-cy="new-command-apply" mat-flat-button (click)="displayApplyForm()">Add an Apply Command</button>
+        <button data-cy="new-command-image" mat-flat-button (click)="displayImageForm()">Add an Image Command</button>
+        <button data-cy="new-command-composite" mat-flat-button (click)="displayCompositeForm()">Add a Composite Command</button>
     </ng-container>
 </div>

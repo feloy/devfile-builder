@@ -86,4 +86,34 @@ describe('devfile editor spec', () => {
       .should('contain.text', 'created-resource')
       .should('contain.text', 'a-resource-manifest');
   });
+
+  it.only('creates an exec command with a new container', () => {
+    cy.visit('http://localhost:4200');
+    cy.clearDevfile();
+
+    cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('new-command-exec').click();
+    cy.getByDataCy('command-exec-name').type('created-command');
+    cy.getByDataCy('command-exec-command-line').type('a-cmdline');
+    cy.getByDataCy('command-exec-working-dir').type('/path/to/working/dir');
+    cy.getByDataCy('select-container').click().get('mat-option').contains('(New Container)').click();
+    cy.getByDataCy('container-name').type('a-created-container');
+    cy.getByDataCy('container-image').type('an-image');
+    cy.getByDataCy('container-create').click();
+
+    cy.getByDataCy('select-container').should('contain', 'a-created-container');
+    cy.getByDataCy('command-exec-create').click();
+
+    cy.getByDataCy('command-info').first()
+      .should('contain.text', 'created-command')
+      .should('contain.text', 'a-cmdline')
+      .should('contain.text', '/path/to/working/dir')
+      .should('contain.text', 'a-created-container');
+
+    cy.selectTab(TAB_CONTAINERS);
+    cy.getByDataCy('container-info').first()
+      .should('contain.text', 'a-created-container')
+      .should('contain.text', 'an-image');
+
+  });
 });
