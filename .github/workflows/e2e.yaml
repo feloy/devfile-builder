@@ -1,0 +1,17 @@
+name: e2e
+on:
+  pull_request:
+    branches:    
+      - main
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm start
+          wait-on: 'npx wait-on --timeout 60000 http://localhost:4200'
