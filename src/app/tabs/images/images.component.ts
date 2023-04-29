@@ -46,4 +46,9 @@ export class ImagesComponent implements OnInit {
       }
     }
   }
+
+  onCreated(image: Image) {
+    const newDevfile = this.wasm.addImage(image);
+    this.state.changeDevfileYaml(newDevfile);
+  }
 }

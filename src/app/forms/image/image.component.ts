@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { StateService } from 'src/app/services/state.service';
-import { WasmGoService } from 'src/app/services/wasm-go.service';
+import { Image } from 'src/app/services/wasm-go.service';
 
 @Component({
   selector: 'app-image',
@@ -11,13 +10,11 @@ import { WasmGoService } from 'src/app/services/wasm-go.service';
 export class ImageComponent {
   @Input() cancelable: boolean = false;
   @Output() canceled = new EventEmitter<void>();
+  @Output() created = new EventEmitter<Image>();
 
   form: FormGroup;
 
-  constructor(
-    private wasm: WasmGoService,
-    private state: StateService,
-  ) {
+  constructor() {
     this.form = new FormGroup({
       name: new FormControl("", [Validators.required]),
       imageName: new FormControl("", [Validators.required]),
@@ -29,8 +26,7 @@ export class ImageComponent {
   }
 
   create() {
-    const newDevfile = this.wasm.addImage(this.form.value);
-    this.state.changeDevfileYaml(newDevfile);
+    this.created.emit(this.form.value);
   }
 
   cancel() {

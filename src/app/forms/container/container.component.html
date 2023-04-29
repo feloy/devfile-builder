@@ -3,16 +3,16 @@
     <form [formGroup]="form">
         <mat-form-field appearance="outline" class="mid-width">
             <mat-label><span>Name</span></mat-label>
-            <input matInput formControlName="name">
+            <input data-cy="container-name" matInput formControlName="name">
         </mat-form-field>
         <mat-form-field appearance="outline" class="mid-width">
             <mat-label><span>Image</span></mat-label>
-            <input matInput formControlName="image">
+            <input data-cy="container-image" matInput formControlName="image">
         </mat-form-field>
         <app-multi-text formControlName="command" label="Command" addLabel="Add command"></app-multi-text>
         <app-multi-text formControlName="args" label="Arg" addLabel="Add arg"></app-multi-text>
     </form>
 
-    <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new container" (click)="create()">Create</button>
+    <button data-cy="container-create" [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new container" (click)="create()">Create</button>
     <button *ngIf="cancelable" mat-flat-button (click)="cancel()">Cancel</button>
 </div>

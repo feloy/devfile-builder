@@ -1,5 +1,5 @@
 <div class="main">
-    <mat-card *ngFor="let image of images">
+    <mat-card data-cy="image-info" *ngFor="let image of images">
         <mat-card-header class="colored-title">
             <mat-card-title>{{image.name}}</mat-card-title>
             <mat-card-subtitle>Image</mat-card-subtitle>
@@ -39,6 +39,7 @@
         *ngIf="forceDisplayAdd || images == undefined || images.length == 0"
         [cancelable]="forceDisplayAdd"
         (canceled)="undisplayAddForm()"
+        (created)="onCreated($event)"
     ></app-image>
     <button *ngIf="!forceDisplayAdd && images != undefined && images.length > 0" mat-flat-button (click)="displayAddForm()">Add a new image</button>
 
