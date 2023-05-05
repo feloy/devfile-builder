@@ -9,4 +9,4 @@ build-wasm:
 	)
 
 deploy:
-	ng deploy --base-href="/devfile-builder/"
+	npm run deploy
