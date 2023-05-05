@@ -6,6 +6,7 @@
             cdkDropListData="build"
             (cdkDropListDropped)="drop($event)">
             <h2>Build Commands</h2>
+            <div class="description">When using odo, a Build command is the first command executed during the inner loop. The command is expected to terminate after the build is completed.</div>
             <app-commands-list kind="build" [dragDisabled]="!enableDragAndDrop" [commands]="commands"></app-commands-list>
         </div>
         <div 
@@ -13,6 +14,7 @@
             cdkDropListData="run"
             (cdkDropListDropped)="drop($event)">
             <h2>Run Commands</h2>
+            <div class="description">When using odo, a Run command is executed during the inner loop after the Build command terminates. The command is expected to not terminate.</div>
             <app-commands-list kind="run" [dragDisabled]="!enableDragAndDrop" [commands]="commands"></app-commands-list>
         </div>
         <div 
@@ -27,6 +29,7 @@
             cdkDropListData="debug"
             (cdkDropListDropped)="drop($event)">
             <h2>Debug Commands</h2>
+            <div class="description">When using odo, a Debug command is executed during the inner loop after the Build command terminates. The command is expected to not terminate.</div>
             <app-commands-list kind="debug" [dragDisabled]="!enableDragAndDrop" [commands]="commands"></app-commands-list>
         </div>
         <div 
@@ -34,6 +37,7 @@
             cdkDropListData="deploy"
             (cdkDropListDropped)="drop($event)">
             <h2>Deploy Commands</h2>
+            <div class="description">When using odo, a Deploy command is executed with <code>odo deploy</code>.</div>
             <app-commands-list kind="deploy" [dragDisabled]="!enableDragAndDrop" [commands]="commands"></app-commands-list>
         </div>
         <div 
@@ -41,6 +45,7 @@
             cdkDropListData=""
             (cdkDropListDropped)="drop($event)">
             <h2>Generic Commands</h2>
+            <div class="description">Generic can be executed manually, or be part of composite commands.</div>
             <app-commands-list kind="" [dragDisabled]="!enableDragAndDrop" [commands]="commands"></app-commands-list>
         </div>
     </div>

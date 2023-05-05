@@ -19,3 +19,13 @@ table.aligned tr {
     height: 30px;
 }
 
+h2:has(+.description) {
+    margin-bottom: 0;
+}
+
+.description {
+    font-style: italic;
+    font-size: smaller;
+    color: #00000087;
+    margin-bottom: 16px;
+}
