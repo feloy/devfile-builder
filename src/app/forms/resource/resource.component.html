@@ -6,7 +6,19 @@
             <input data-cy="resource-name" matInput formControlName="name">
         </mat-form-field>
     
-        <mat-form-field appearance="outline" class="full-width">
+        <span class="toggleUriInlined">
+            <mat-button-toggle-group (change)="changeUriOrInlined($event.value)">
+                <mat-button-toggle data-cy="resource-toogle-uri" value="uri" checked>Specify URI</mat-button-toggle>
+                <mat-button-toggle data-cy="resource-toggle-inlined" value="inlined">Inlined content</mat-button-toggle>
+            </mat-button-toggle-group>
+        </span>
+
+        <mat-form-field *ngIf="uriOrInlined=='uri'" appearance="outline" class="full-width">
+            <mat-label><span>URI</span></mat-label>
+            <input data-cy="resource-uri" matInput formControlName="uri">
+        </mat-form-field>
+    
+        <mat-form-field  *ngIf="uriOrInlined=='inlined'" appearance="outline" class="full-width">
             <mat-label>YAML Manifest</mat-label>
             <textarea data-cy="resource-manifest" matInput formControlName="inlined" rows="8"></textarea>
         </mat-form-field>

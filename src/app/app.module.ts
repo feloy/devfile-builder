@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
@@ -42,7 +43,7 @@ function loadWasmModule() {
   return () => {
     return new Promise<void>((resolve) => {
       const go = new Go();
-      WebAssembly.instantiateStreaming(fetch("./assets/devfile.398d25b99846e2d994ae22ed3a786d7f.wasm"), go.importObject).then((result) => {
+      WebAssembly.instantiateStreaming(fetch("./assets/devfile.1281a342f5c2876af89da69fa25f3680.wasm"), go.importObject).then((result) => {
           go.run(result.instance);
           resolve();
       });
@@ -79,6 +80,7 @@ function loadWasmModule() {
     DragDropModule,
     
     MatButtonModule,
+    MatButtonToggleModule,
     MatCardModule,
     MatCheckboxModule,
     MatChipsModule,
