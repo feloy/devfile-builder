@@ -94,7 +94,6 @@ declare const addResource: (name: string, inlined: string) => Result;
 declare const addExecCommand: (name: string, component: string, commmandLine: string, workingDir: string, hotReloadCapable: boolean) => Result;
 declare const addApplyCommand: (name: string, component: string) => Result;
 declare const addCompositeCommand: (name: string, parallel: boolean, commands: string[]) => Result;
-declare const addUserCommand: (component: string, name: string, commandLine: string) => Result;
 declare const getFlowChart: () => ChartResult;
 declare const setDevfileContent: (devfile: string) => Result;
 declare const setMetadata: (metadata: Metadata) => Result;
@@ -168,11 +167,6 @@ export class WasmGoService {
       cmd.parallel,
       cmd.commands,      
     );
-    return result.value;
-  }
-
-  addUserCommand(component: string, name: string, commandLine: string): ResultValue {
-    const result = addUserCommand(component, name, commandLine);
     return result.value;
   }
 
