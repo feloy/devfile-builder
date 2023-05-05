@@ -73,18 +73,34 @@ describe('devfile editor spec', () => {
       .should('contain.text', '/path/to/dockerfile');
   });
 
-  it('displays a created resource', () => {
+  it('displays a created resource, with manifest', () => {
     cy.visit('http://localhost:4200');
     cy.clearDevfile();
 
     cy.selectTab(TAB_RESOURCES);
     cy.getByDataCy('resource-name').type('created-resource');
+    cy.getByDataCy('resource-toggle-inlined').click();
     cy.getByDataCy('resource-manifest').type('a-resource-manifest');
     cy.getByDataCy('resource-create').click();
 
     cy.getByDataCy('resource-info').first()
       .should('contain.text', 'created-resource')
       .should('contain.text', 'a-resource-manifest');
+  });
+
+  it('displays a created resource, with uri (default)', () => {
+    cy.visit('http://localhost:4200');
+    cy.clearDevfile();
+
+    cy.selectTab(TAB_RESOURCES);
+    cy.getByDataCy('resource-name').type('created-resource');
+    cy.getByDataCy('resource-uri').type('/my/manifest.yaml');
+    cy.getByDataCy('resource-create').click();
+
+    cy.getByDataCy('resource-info').first()
+      .should('contain.text', 'created-resource')
+      .should('contain.text', 'URI')
+      .should('contain.text', '/my/manifest.yaml');
   });
 
   it('creates an exec command with a new container', () => {
@@ -145,7 +161,7 @@ describe('devfile editor spec', () => {
       .should('contain.text', '/path/to/Dockerfile');
   });
 
-  it('creates an apply resource command with a new resource', () => {
+  it('creates an apply resource command with a new resource using manifest', () => {
     cy.visit('http://localhost:4200');
     cy.clearDevfile();
 
@@ -154,6 +170,7 @@ describe('devfile editor spec', () => {
     cy.getByDataCy('command-apply-name').type('created-command');
     cy.getByDataCy('select-container').click().get('mat-option').contains('(New Resource)').click();
     cy.getByDataCy('resource-name').type('a-created-resource');
+    cy.getByDataCy('resource-toggle-inlined').click();
     cy.getByDataCy('resource-manifest').type('spec: {}');
     cy.getByDataCy('resource-create').click();
 
@@ -168,5 +185,31 @@ describe('devfile editor spec', () => {
     cy.getByDataCy('resource-info').first()
       .should('contain.text', 'a-created-resource')
       .should('contain.text', 'spec: {}');
+  });
+
+  it('creates an apply resource command with a new resource using uri (default)', () => {
+    cy.visit('http://localhost:4200');
+    cy.clearDevfile();
+
+    cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('new-command-apply').click();
+    cy.getByDataCy('command-apply-name').type('created-command');
+    cy.getByDataCy('select-container').click().get('mat-option').contains('(New Resource)').click();
+    cy.getByDataCy('resource-name').type('a-created-resource');
+    cy.getByDataCy('resource-uri').type('/my/manifest.yaml');
+    cy.getByDataCy('resource-create').click();
+
+    cy.getByDataCy('select-container').should('contain', 'a-created-resource');
+    cy.getByDataCy('command-apply-create').click();
+
+    cy.getByDataCy('command-info').first()
+      .should('contain.text', 'created-command')
+      .should('contain.text', 'a-created-resource');
+
+    cy.selectTab(TAB_RESOURCES);
+    cy.getByDataCy('resource-info').first()
+      .should('contain.text', 'a-created-resource')
+      .should('contain.text', 'URI')
+      .should('contain.text', '/my/manifest.yaml');
   });
 });
