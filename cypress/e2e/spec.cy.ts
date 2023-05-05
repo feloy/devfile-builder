@@ -114,6 +114,59 @@ describe('devfile editor spec', () => {
     cy.getByDataCy('container-info').first()
       .should('contain.text', 'a-created-container')
       .should('contain.text', 'an-image');
+  });
 
+  it('creates an apply image command with a new image', () => {
+    cy.visit('http://localhost:4200');
+    cy.clearDevfile();
+
+    cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('new-command-image').click();
+    cy.getByDataCy('command-image-name').type('created-command');
+    cy.getByDataCy('select-container').click().get('mat-option').contains('(New Image)').click();
+    cy.getByDataCy('image-name').type('a-created-image');
+    cy.getByDataCy('image-image-name').type('an-image-name');
+    cy.getByDataCy('image-build-context').type('/context/dir');
+    cy.getByDataCy('image-dockerfile-uri').type('/path/to/Dockerfile');
+    cy.getByDataCy('image-create').click();
+
+    cy.getByDataCy('select-container').should('contain', 'a-created-image');
+    cy.getByDataCy('command-image-create').click();
+
+    cy.getByDataCy('command-info').first()
+      .should('contain.text', 'created-command')
+      .should('contain.text', 'a-created-image');
+
+    cy.selectTab(TAB_IMAGES);
+    cy.getByDataCy('image-info').first()
+      .should('contain.text', 'a-created-image')
+      .should('contain.text', 'an-image-name')
+      .should('contain.text', '/context/dir')
+      .should('contain.text', '/path/to/Dockerfile');
+  });
+
+  it('creates an apply resource command with a new resource', () => {
+    cy.visit('http://localhost:4200');
+    cy.clearDevfile();
+
+    cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('new-command-apply').click();
+    cy.getByDataCy('command-apply-name').type('created-command');
+    cy.getByDataCy('select-container').click().get('mat-option').contains('(New Resource)').click();
+    cy.getByDataCy('resource-name').type('a-created-resource');
+    cy.getByDataCy('resource-manifest').type('spec: {}');
+    cy.getByDataCy('resource-create').click();
+
+    cy.getByDataCy('select-container').should('contain', 'a-created-resource');
+    cy.getByDataCy('command-apply-create').click();
+
+    cy.getByDataCy('command-info').first()
+      .should('contain.text', 'created-command')
+      .should('contain.text', 'a-created-resource');
+
+    cy.selectTab(TAB_RESOURCES);
+    cy.getByDataCy('resource-info').first()
+      .should('contain.text', 'a-created-resource')
+      .should('contain.text', 'spec: {}');
   });
 });

@@ -3,11 +3,20 @@
     <form [formGroup]="form">
         <mat-form-field appearance="outline" class="mid-width">
             <mat-label><span>Name</span></mat-label>
-            <input matInput formControlName="name">
+            <input data-cy="command-apply-name" matInput formControlName="name">
         </mat-form-field>
-        <div><app-select-container formControlName="component" label="Resource" [containers]="resourceList"></app-select-container></div>
+        <div><app-select-container
+            formControlName="component"
+            label="Resource"
+            [containers]="resourceList"
+            (createNew)="onCreateNewContainer($event)"></app-select-container></div>
     </form>
 
-    <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Apply Command" (click)="create()">Create</button>
+    <app-resource
+        *ngIf="showNewResource"
+        (created)="onNewResourceCreated($event)"
+        ></app-resource>
+
+    <button data-cy="command-apply-create" [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Apply Command" (click)="create()">Create</button>
     <button mat-flat-button (click)="cancel()">Cancel</button>
 </div>

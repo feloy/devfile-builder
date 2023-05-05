@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StateService } from 'src/app/services/state.service';
-import { WasmGoService } from 'src/app/services/wasm-go.service';
+import { Image, WasmGoService } from 'src/app/services/wasm-go.service';
 import { PATTERN_COMMAND_ID } from '../patterns';
 
 @Component({
@@ -14,6 +14,8 @@ export class CommandImageComponent {
 
   form: FormGroup;
   imageList: string[] = [];
+  showNewImage: boolean = false;
+  imageToCreate: Image | null = null;
 
   constructor(
     private wasm: WasmGoService,
@@ -34,12 +36,28 @@ export class CommandImageComponent {
   }
 
   create() {
-    console.log(this.form.value);
-    const newDevfile = this.wasm.addApplyCommand(this.form.value["name"], this.form.value);
+    if (this.imageToCreate != null && 
+      this.imageToCreate?.name == this.form.controls["component"].value) {
+      const result = this.wasm.addImage(this.imageToCreate);
+      // TODO check result error
+    }
+
+  const newDevfile = this.wasm.addApplyCommand(this.form.value["name"], this.form.value);
     this.state.changeDevfileYaml(newDevfile);
   }
 
   cancel() {
     this.canceled.emit();
+  }
+
+  onCreateNewImage(v: boolean) {
+    this.showNewImage = v;
+  }
+
+  onNewImageCreated(image: Image) {
+    this.imageList.push(image.name);
+    this.form.controls["component"].setValue(image.name);
+    this.showNewImage = false;
+    this.imageToCreate = image;
   }
 }
