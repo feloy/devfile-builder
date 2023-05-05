@@ -5,8 +5,17 @@
             <mat-label><span>Name</span></mat-label>
             <input matInput formControlName="name">
         </mat-form-field>
-        <div><app-select-container formControlName="component" label="Image" [containers]="imageList"></app-select-container></div>
+        <div><app-select-container
+            formControlName="component"
+            label="Image"
+            [containers]="imageList"
+            (createNew)="onCreateNewImage($event)"></app-select-container></div>
     </form>
+
+    <app-image
+    *ngIf="showNewImage"
+    (created)="onNewImageCreated($event)"
+    ></app-image>
 
     <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Image Command" (click)="create()">Create</button>
     <button mat-flat-button (click)="cancel()">Cancel</button>

@@ -33,6 +33,7 @@ export class CommandsComponent {
       }
       this.forceDisplayExecForm = false;
       this.forceDisplayApplyForm = false;
+      this.forceDisplayImageForm = false;
       this.forceDisplayCompositeForm = false;
     });
   }
