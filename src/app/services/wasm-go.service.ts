@@ -17,7 +17,6 @@ export type ResultValue = {
   containers: Container[];
   images: Image[];
   resources: ClusterResource[];
-  devEnvs: DevEnv[];
 };
 
 export type Metadata = {
@@ -89,26 +88,6 @@ export type ClusterResource = {
   uri: string;
 };
 
-export type DevEnv = {
-  name: string;
-  image: string;
-  command: string[];
-  args: string[];
-  userCommands: UserCommand[];
-}
-
-export type Group = '' | 'build' | 'test'| 'run'  | 'debug' | 'deploy';
-
-export type UserCommand = {
-  name: string;
-  group: Group;
-  default: boolean;
-  commandLine: string;
-  hotReloadCapable: boolean;
-  workInSourceDir: boolean;
-  workingDir: string;
-};
-
 declare const addContainer: (name: string, image: string, command: string[], args: string[]) => Result;
 declare const addImage: (name: string, imageName: string, args: string[], buildContext: string, rootRequired: boolean, uri: string) => Result;
 declare const addResource: (name: string, inlined: string) => Result;
@@ -119,7 +98,6 @@ declare const addUserCommand: (component: string, name: string, commandLine: str
 declare const getFlowChart: () => ChartResult;
 declare const setDevfileContent: (devfile: string) => Result;
 declare const setMetadata: (metadata: Metadata) => Result;
-declare const updateContainer: (name: string, image: string, command: string[], args: string[], userCommands: UserCommand[]) => Result;
 declare const moveCommand: (previousKind: string, newKind: string, previousIndex: number, newIndex: number) => Result;
 declare const setDefaultCommand: (command: string, group: string) => Result;
 declare const unsetDefaultCommand: (command: string) => Result;
@@ -196,20 +174,6 @@ export class WasmGoService {
   addUserCommand(component: string, name: string, commandLine: string): ResultValue {
     const result = addUserCommand(component, name, commandLine);
     return result.value;
-  }
-
-  updateContainer(devEnv: DevEnv): ResultValue {
-    const result = updateContainer(
-      devEnv.name,
-      devEnv.image,
-      devEnv.command,
-      devEnv.args,
-      devEnv.userCommands,
-    );
-    if (result.err != "") {
-      console.log(result.err);
-    }
-    return result.value;  
   }
 
   // getFlowChart calls the wasm module to get the lifecycle of the Devfile in mermaid chart format
