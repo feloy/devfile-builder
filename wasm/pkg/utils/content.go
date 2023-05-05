@@ -49,11 +49,6 @@ func GetContent() (map[string]interface{}, error) {
 		return nil, errors.New("error getting Kubernetes resources")
 	}
 
-	devEnvs, err := getDevEnvs()
-	if err != nil {
-		return nil, errors.New("error getting development environments")
-	}
-
 	return map[string]interface{}{
 		"content":    string(result),
 		"metadata":   getMetadata(),
@@ -61,7 +56,6 @@ func GetContent() (map[string]interface{}, error) {
 		"containers": containers,
 		"images":     images,
 		"resources":  resources,
-		"devEnvs":    devEnvs,
 	}, nil
 }
 
@@ -224,70 +218,6 @@ func getResources() ([]interface{}, error) {
 			"name":    resource.Name,
 			"inlined": resource.ComponentUnion.Kubernetes.Inlined,
 			"uri":     resource.ComponentUnion.Kubernetes.Uri,
-		})
-	}
-	return result, nil
-}
-
-func getDevEnvs() ([]interface{}, error) {
-	containers, err := global.Devfile.Data.GetComponents(common.DevfileOptions{
-		ComponentOptions: common.ComponentOptions{
-			ComponentType: v1alpha2.ContainerComponentType,
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-	result := make([]interface{}, 0, len(containers))
-	for _, container := range containers {
-		commands := make([]interface{}, len(container.ComponentUnion.Container.Command))
-		for i, command := range container.ComponentUnion.Container.Command {
-			commands[i] = command
-		}
-
-		args := make([]interface{}, len(container.ComponentUnion.Container.Args))
-		for i, arg := range container.ComponentUnion.Container.Args {
-			args[i] = arg
-		}
-
-		userCommands, err := getUserCommands(container.Name)
-		if err != nil {
-			return nil, err
-		}
-
-		result = append(result, map[string]interface{}{
-			"name":         container.Name,
-			"image":        container.ComponentUnion.Container.Image,
-			"command":      commands,
-			"args":         args,
-			"userCommands": userCommands,
-		})
-	}
-	return result, nil
-}
-
-func getUserCommands(component string) ([]interface{}, error) {
-	result := []interface{}{}
-
-	commands, err := global.Devfile.Data.GetCommands(common.DevfileOptions{
-		CommandOptions: common.CommandOptions{
-			CommandType: v1alpha2.ExecCommandType,
-		},
-	})
-	if err != nil {
-		return nil, err
-	}
-	for _, command := range commands {
-		if command.Exec.Component != component {
-			continue
-		}
-		result = append(result, map[string]interface{}{
-			"name":             command.Id,
-			"group":            GetGroup(command),
-			"default":          GetDefault(command),
-			"commandLine":      command.CommandUnion.Exec.CommandLine,
-			"hotReloadCapable": pointer.BoolDeref(command.CommandUnion.Exec.HotReloadCapable, false),
-			"workingDir":       command.CommandUnion.Exec.WorkingDir,
 		})
 	}
 	return result, nil

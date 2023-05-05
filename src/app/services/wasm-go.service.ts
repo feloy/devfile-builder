@@ -90,7 +90,7 @@ export type ClusterResource = {
 
 declare const addContainer: (name: string, image: string, command: string[], args: string[]) => Result;
 declare const addImage: (name: string, imageName: string, args: string[], buildContext: string, rootRequired: boolean, uri: string) => Result;
-declare const addResource: (name: string, inlined: string) => Result;
+declare const addResource: (name: string, inlined: string, uri: string) => Result;
 declare const addExecCommand: (name: string, component: string, commmandLine: string, workingDir: string, hotReloadCapable: boolean) => Result;
 declare const addApplyCommand: (name: string, component: string) => Result;
 declare const addCompositeCommand: (name: string, parallel: boolean, commands: string[]) => Result;
@@ -138,6 +138,7 @@ export class WasmGoService {
     const result = addResource(
       resource.name,
       resource.inlined,
+      resource.uri,
     );
     return result.value;
   }

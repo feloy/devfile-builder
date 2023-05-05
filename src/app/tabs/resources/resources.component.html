@@ -5,8 +5,8 @@
             <mat-card-subtitle>Cluster Resource</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-            <pre>{{resource.inlined}}</pre>
-            <div>{{resource.uri}}</div>
+            <div *ngIf="resource.uri">URI: <code>{{resource.uri}}</code></div>
+            <div *ngIf="resource.inlined"><pre>{{resource.inlined}}</pre></div>
         </mat-card-content>
 
         <mat-card-actions>
