@@ -20,10 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { MetadataComponent } from './forms/metadata/metadata.component';
-import { DevEnvComponent } from './forms/dev-env/dev-env.component';
-import { NewDevEnvComponent } from './forms/new-dev-env/new-dev-env.component';
 import { MultiTextComponent } from './controls/multi-text/multi-text.component';
-import { NewUserCommandComponent } from './forms/new-user-command/new-user-command.component';
 import { ContainersComponent } from './tabs/containers/containers.component';
 import { ContainerComponent } from './forms/container/container.component';
 import { CommandsComponent } from './tabs/commands/commands.component';
@@ -57,10 +54,7 @@ function loadWasmModule() {
   declarations: [
     AppComponent,
     MetadataComponent,
-    DevEnvComponent,
-    NewDevEnvComponent,
     MultiTextComponent,
-    NewUserCommandComponent,
     ContainersComponent,
     ContainerComponent,
     CommandsComponent,
