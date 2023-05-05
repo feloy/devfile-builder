@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StateService } from 'src/app/services/state.service';
-import { WasmGoService } from 'src/app/services/wasm-go.service';
+import { ClusterResource, WasmGoService } from 'src/app/services/wasm-go.service';
 import { PATTERN_COMMAND_ID } from '../patterns';
 
 @Component({
@@ -14,6 +14,8 @@ export class CommandApplyComponent {
 
   form: FormGroup;
   resourceList: string[] = [];
+  showNewResource: boolean = false;
+  resourceToCreate: ClusterResource | null = null;
 
   constructor(
     private wasm: WasmGoService,
@@ -34,12 +36,28 @@ export class CommandApplyComponent {
   }
 
   create() {
-   console.log(this.form.value);
+    if (this.resourceToCreate != null && 
+      this.resourceToCreate?.name == this.form.controls["component"].value) {
+      const result = this.wasm.addResource(this.resourceToCreate);
+      // TODO check result error
+    }
+
     const newDevfile = this.wasm.addApplyCommand(this.form.value["name"], this.form.value);
     this.state.changeDevfileYaml(newDevfile);
   }
 
   cancel() {
     this.canceled.emit();
+  }
+
+  onCreateNewContainer(v: boolean) {
+    this.showNewResource = v;
+  }
+
+  onNewResourceCreated(resource: ClusterResource) {
+    this.resourceList.push(resource.name);
+    this.form.controls["component"].setValue(resource.name);
+    this.showNewResource = false;
+    this.resourceToCreate = resource;
   }
 }
