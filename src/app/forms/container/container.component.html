@@ -11,8 +11,8 @@
             <mat-label><span>Image</span></mat-label>
             <input placeholder="Image to start the container" data-cy="container-image" matInput formControlName="image">
         </mat-form-field>
-        <app-multi-text formControlName="command" label="Command" addLabel="Add command"></app-multi-text>
-        <app-multi-text formControlName="args" label="Arg" addLabel="Add arg"></app-multi-text>
+        <app-multi-text formControlName="command" title="Command" label="Command" addLabel="Add command"></app-multi-text>
+        <app-multi-text formControlName="args" title="Arguments to command" label="Arg" addLabel="Add arg"></app-multi-text>
     </form>
 
     <button data-cy="container-create" [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new container" (click)="create()">Create</button>

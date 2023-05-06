@@ -1,4 +1,5 @@
-<div>
+<h3>{{title}}</h3>
+<div class="group">
     <span *ngFor="let command of commands; let i=index">
         <mat-form-field appearance="fill">
             <mat-select [value]="command" (selectionChange)="onCommandChange(i, $event.value)">
