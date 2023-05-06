@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClusterResource } from 'src/app/services/wasm-go.service';
+import { PATTERN_COMPONENT_ID } from '../patterns';
 
 @Component({
   selector: 'app-resource',
@@ -17,7 +18,7 @@ export class ResourceComponent {
 
   constructor() {
     this.form = new FormGroup({
-      name: new FormControl("", [Validators.required]),
+      name: new FormControl("", [Validators.required, Validators.pattern(PATTERN_COMPONENT_ID)]),
       uri: new FormControl("", [Validators.required]),
       inlined: new FormControl("", []),
     })
