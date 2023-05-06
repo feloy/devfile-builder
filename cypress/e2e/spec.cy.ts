@@ -108,7 +108,9 @@ describe('devfile editor spec', () => {
     cy.clearDevfile();
 
     cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('add').click();
     cy.getByDataCy('new-command-exec').click();
+
     cy.getByDataCy('command-exec-name').type('created-command');
     cy.getByDataCy('command-exec-command-line').type('a-cmdline');
     cy.getByDataCy('command-exec-working-dir').type('/path/to/working/dir');
@@ -137,6 +139,7 @@ describe('devfile editor spec', () => {
     cy.clearDevfile();
 
     cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('add').click();
     cy.getByDataCy('new-command-image').click();
     cy.getByDataCy('command-image-name').type('created-command');
     cy.getByDataCy('select-container').click().get('mat-option').contains('(New Image)').click();
@@ -166,6 +169,7 @@ describe('devfile editor spec', () => {
     cy.clearDevfile();
 
     cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('add').click();
     cy.getByDataCy('new-command-apply').click();
     cy.getByDataCy('command-apply-name').type('created-command');
     cy.getByDataCy('select-container').click().get('mat-option').contains('(New Resource)').click();
@@ -192,6 +196,7 @@ describe('devfile editor spec', () => {
     cy.clearDevfile();
 
     cy.selectTab(TAB_COMMANDS);
+    cy.getByDataCy('add').click();
     cy.getByDataCy('new-command-apply').click();
     cy.getByDataCy('command-apply-name').type('created-command');
     cy.getByDataCy('select-container').click().get('mat-option').contains('(New Resource)').click();

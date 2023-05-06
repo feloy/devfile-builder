@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, ElementRef, EventEmitter, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { StateService } from 'src/app/services/state.service';
 import { Command, WasmGoService } from 'src/app/services/wasm-go.service';
 
@@ -9,7 +9,6 @@ import { Command, WasmGoService } from 'src/app/services/wasm-go.service';
   styleUrls: ['./commands.component.css']
 })
 export class CommandsComponent {
-
   forceDisplayExecForm: boolean = false;
   forceDisplayApplyForm: boolean = false;
   forceDisplayImageForm: boolean = false;
