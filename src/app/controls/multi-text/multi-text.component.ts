@@ -18,6 +18,7 @@ export class MultiTextComponent implements ControlValueAccessor {
 
   @Input() label: string = "";
   @Input() addLabel: string = "";
+  @Input() title: string = "";
 
   onChange = (_: string[]) => {};
 

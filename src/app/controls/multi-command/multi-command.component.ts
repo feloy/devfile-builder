@@ -17,6 +17,7 @@ export class MultiCommandComponent {
 
   @Input() addLabel: string = "";
   @Input() commandList: string[] = [];
+  @Input() title: string = "";
 
   onChange = (_: string[]) => {};
 

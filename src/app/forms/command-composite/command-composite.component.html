@@ -8,7 +8,7 @@
             <input placeholder="unique name to identify the command" matInput formControlName="name">
         </mat-form-field>
         <div><mat-checkbox formControlName="parallel">Run commands in parallel</mat-checkbox></div>
-        <app-multi-command formControlName="commands" addLabel="Add a command" [commandList]="commandList"></app-multi-command>
+        <app-multi-command formControlName="commands" title="Commands" addLabel="Add a command" [commandList]="commandList"></app-multi-command>
     </form>
 
     <button [disabled]="form.invalid" mat-flat-button color="primary" matTooltip="create new Composite Command" (click)="create()">Create</button>
