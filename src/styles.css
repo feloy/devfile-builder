@@ -31,3 +31,5 @@ h2:has(+.description) {
 }
 
 div mat-checkbox { margin-bottom: 16px; }
+
+button { margin-right: 8px; }

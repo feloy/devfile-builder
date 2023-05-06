@@ -55,7 +55,9 @@ export class AppComponent implements OnInit {
   }
 
   clear() {
-    this.state.resetDevfile();
-    window.location.reload();
+    if (confirm('You will delete the content of the Devfile. Continue?')) {
+      this.state.resetDevfile();
+      window.location.reload();  
+    }
   }
 }
