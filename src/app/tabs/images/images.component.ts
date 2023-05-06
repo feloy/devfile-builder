@@ -30,6 +30,9 @@ export class ImagesComponent implements OnInit {
 
   displayAddForm() {
     this.forceDisplayAdd = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   undisplayAddForm() {
@@ -50,5 +53,9 @@ export class ImagesComponent implements OnInit {
   onCreated(image: Image) {
     const newDevfile = this.wasm.addImage(image);
     this.state.changeDevfileYaml(newDevfile);
+  }
+
+  scrollToBottom() {
+    window.scrollTo(0,document.body.scrollHeight);
   }
 }

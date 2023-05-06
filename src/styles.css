@@ -33,3 +33,9 @@ h2:has(+.description) {
 div mat-checkbox { margin-bottom: 16px; }
 
 button { margin-right: 8px; }
+
+.fab {
+    position: fixed !important;
+    bottom: 16px;
+    right: calc((100vw - 1060px)/2 - 15px + 16px);
+}

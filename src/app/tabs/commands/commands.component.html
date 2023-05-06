@@ -56,9 +56,9 @@
 </div>
 
 <ng-container *ngIf="!forceDisplayExecForm && !forceDisplayApplyForm && !forceDisplayImageForm && !forceDisplayCompositeForm">
-    <button id="fab-add-command" mat-fab color="primary" [matMenuTriggerFor]="menu">
-    <mat-icon class="material-icons-outlined">add</mat-icon>
-</button>
+    <button class="fab" mat-fab color="primary" [matMenuTriggerFor]="menu">
+        <mat-icon class="material-icons-outlined">add</mat-icon>
+    </button>
 </ng-container>
 
 <mat-menu #menu="matMenu">
@@ -77,4 +77,4 @@
     <button mat-menu-item (click)="displayCompositeForm()">
         <span>Composite command</span>
     </button>
-    </mat-menu>
+</mat-menu>

@@ -31,6 +31,9 @@ export class ResourcesComponent implements OnInit {
 
   displayAddForm() {
     this.forceDisplayAdd = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   undisplayAddForm() {
@@ -51,5 +54,9 @@ export class ResourcesComponent implements OnInit {
   onCreated(resource: ClusterResource) {
     const newDevfile = this.wasm.addResource(resource);
     this.state.changeDevfileYaml(newDevfile);
+  }
+
+  scrollToBottom() {
+    window.scrollTo(0,document.body.scrollHeight);
   }
 }
