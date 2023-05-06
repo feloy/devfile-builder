@@ -56,25 +56,25 @@
 </div>
 
 <ng-container *ngIf="!forceDisplayExecForm && !forceDisplayApplyForm && !forceDisplayImageForm && !forceDisplayCompositeForm">
-    <button class="fab" mat-fab color="primary" [matMenuTriggerFor]="menu">
+    <button data-cy="add" class="fab" mat-fab color="primary" [matMenuTriggerFor]="menu">
         <mat-icon class="material-icons-outlined">add</mat-icon>
     </button>
 </ng-container>
 
-<mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="displayExecForm()">
+<mat-menu #menu="matMenu" yPosition="above" xPosition="before">
+    <button data-cy="new-command-exec" mat-menu-item (click)="displayExecForm()">
         <mat-icon class="tab-icon material-icons-outlined">width_normal</mat-icon>
         <span>Exec command</span>
     </button>
-    <button mat-menu-item (click)="displayImageForm()">
+    <button data-cy="new-command-image" mat-menu-item (click)="displayImageForm()">
         <mat-icon class="tab-icon material-icons-outlined">image</mat-icon>
         <span>Image command</span>
       </button>
-      <button mat-menu-item (click)="displayApplyForm()">
+      <button data-cy="new-command-apply" mat-menu-item (click)="displayApplyForm()">
         <mat-icon class="tab-icon material-icons-outlined">description</mat-icon>
         <span>Apply command</span>
     </button>
-    <button mat-menu-item (click)="displayCompositeForm()">
+    <button data-cy="new-command-composite" mat-menu-item (click)="displayCompositeForm()">
         <span>Composite command</span>
     </button>
 </mat-menu>
