@@ -41,6 +41,10 @@
         (canceled)="undisplayAddForm()"
         (created)="onCreated($event)"
     ></app-image>
-    <button *ngIf="!forceDisplayAdd && images != undefined && images.length > 0" mat-flat-button (click)="displayAddForm()">Add a new image</button>
-
 </div>
+
+<ng-container *ngIf="!forceDisplayAdd && images != undefined && images.length > 0">
+    <button class="fab" mat-fab color="primary" (click)="displayAddForm()">
+        <mat-icon class="material-icons-outlined">add</mat-icon>
+    </button>
+</ng-container>

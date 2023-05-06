@@ -34,6 +34,11 @@
         (canceled)="undisplayAddForm()"
         (created)="onCreated($event)"
         ></app-container>
-    <button *ngIf="!forceDisplayAdd && containers != undefined && containers.length > 0" mat-flat-button (click)="displayAddForm()">Add a new container</button>
-
 </div>
+
+
+<ng-container *ngIf="!forceDisplayAdd && containers != undefined && containers.length > 0">
+    <button class="fab" mat-fab color="primary" (click)="displayAddForm()">
+        <mat-icon class="material-icons-outlined">add</mat-icon>
+    </button>
+</ng-container>

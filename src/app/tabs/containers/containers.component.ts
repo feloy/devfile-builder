@@ -30,6 +30,9 @@ export class ContainersComponent implements OnInit {
 
   displayAddForm() {
     this.forceDisplayAdd = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   undisplayAddForm() {
@@ -50,5 +53,9 @@ export class ContainersComponent implements OnInit {
   onCreated(container: Container) {
     const newDevfile = this.wasm.addContainer(container);
     this.state.changeDevfileYaml(newDevfile);
+  }
+
+  scrollToBottom() {
+    window.scrollTo(0,document.body.scrollHeight);
   }
 }
