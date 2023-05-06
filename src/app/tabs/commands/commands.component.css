@@ -20,3 +20,9 @@ h2 {
 div.align-right {
     text-align: right;
 }
+
+#fab-add-command {
+    position: fixed;
+    bottom: 8px;
+    right: calc((100vw - 1060px)/2 - 15px + 8px);
+}

@@ -1,5 +1,5 @@
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { Component, EventEmitter } from '@angular/core';
+import { Component, ElementRef, EventEmitter, ViewChild } from '@angular/core';
 import { StateService } from 'src/app/services/state.service';
 import { Command, WasmGoService } from 'src/app/services/wasm-go.service';
 
@@ -40,18 +40,30 @@ export class CommandsComponent {
 
   displayExecForm() {
     this.forceDisplayExecForm = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   displayApplyForm() {
     this.forceDisplayApplyForm = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   displayImageForm() {
     this.forceDisplayImageForm = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   displayCompositeForm() {
     this.forceDisplayCompositeForm = true;
+    setTimeout(() => {
+      this.scrollToBottom();      
+    }, 0);
   }
 
   undisplayExecForm() {
@@ -87,4 +99,9 @@ export class CommandsComponent {
   enableDragAndDropChange() {
     this.state.saveDragAndDropEnabled(this.enableDragAndDrop);
   }
+
+  scrollToBottom() {
+    window.scrollTo(0,document.body.scrollHeight);
+  }
+  
 }

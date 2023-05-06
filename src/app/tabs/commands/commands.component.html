@@ -53,11 +53,28 @@
     <app-command-apply (canceled)="undisplayApplyForm()" *ngIf="forceDisplayApplyForm"></app-command-apply>
     <app-command-image (canceled)="undisplayImageForm()" *ngIf="forceDisplayImageForm"></app-command-image>
     <app-command-composite (canceled)="undisplayCompositeForm()" *ngIf="forceDisplayCompositeForm"></app-command-composite>
-
-    <ng-container *ngIf="!forceDisplayExecForm && !forceDisplayApplyForm && !forceDisplayImageForm && !forceDisplayCompositeForm">
-        <button data-cy="new-command-exec" mat-flat-button (click)="displayExecForm()">Add an Exec Command</button>
-        <button data-cy="new-command-apply" mat-flat-button (click)="displayApplyForm()">Add an Apply Command</button>
-        <button data-cy="new-command-image" mat-flat-button (click)="displayImageForm()">Add an Image Command</button>
-        <button data-cy="new-command-composite" mat-flat-button (click)="displayCompositeForm()">Add a Composite Command</button>
-    </ng-container>
 </div>
+
+<ng-container *ngIf="!forceDisplayExecForm && !forceDisplayApplyForm && !forceDisplayImageForm && !forceDisplayCompositeForm">
+    <button id="fab-add-command" mat-fab color="primary" [matMenuTriggerFor]="menu">
+    <mat-icon class="material-icons-outlined">add</mat-icon>
+</button>
+</ng-container>
+
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="displayExecForm()">
+        <mat-icon class="tab-icon material-icons-outlined">width_normal</mat-icon>
+        <span>Exec command</span>
+    </button>
+    <button mat-menu-item (click)="displayImageForm()">
+        <mat-icon class="tab-icon material-icons-outlined">image</mat-icon>
+        <span>Image command</span>
+      </button>
+      <button mat-menu-item (click)="displayApplyForm()">
+        <mat-icon class="tab-icon material-icons-outlined">description</mat-icon>
+        <span>Apply command</span>
+    </button>
+    <button mat-menu-item (click)="displayCompositeForm()">
+        <span>Composite command</span>
+    </button>
+    </mat-menu>
