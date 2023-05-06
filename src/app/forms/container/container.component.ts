@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PATTERN_CONTAINER_ID } from '../patterns';
+import { PATTERN_COMPONENT_ID } from '../patterns';
 import { Container } from 'src/app/services/wasm-go.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class ContainerComponent {
 
   constructor() {
     this.form = new FormGroup({
-      name: new FormControl("", [Validators.required, Validators.pattern(PATTERN_CONTAINER_ID)]),
+      name: new FormControl("", [Validators.required, Validators.pattern(PATTERN_COMPONENT_ID)]),
       image: new FormControl("", [Validators.required]),
       command: new FormControl([]),
       args: new FormControl([]),
