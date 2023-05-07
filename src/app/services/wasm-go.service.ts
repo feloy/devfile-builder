@@ -140,15 +140,14 @@ export class WasmGoService {
     );
   }
 
-  addExecCommand(name: string, cmd: ExecCommand): ResultValue {
-    const result = addExecCommand(
+  addExecCommand(name: string, cmd: ExecCommand): Result {
+    return addExecCommand(
       name,
       cmd.component,
       cmd.commandLine,
       cmd.workingDir,
       cmd.hotReloadCapable,
     );
-    return result.value;
   }
 
   addApplyCommand(name: string, cmd: ApplyCommand): ResultValue {

@@ -47,8 +47,12 @@ export class CommandExecComponent {
         return;
       }
     }
-    const newDevfile = this.wasm.addExecCommand(this.form.value["name"], this.form.value);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.addExecCommand(this.form.value["name"], this.form.value);
+    if (result.err != '') {
+      alert(result.err);      
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 
   cancel() {
