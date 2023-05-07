@@ -177,9 +177,8 @@ export class WasmGoService {
     return result;  
   }
 
-  setMetadata(metadata: Metadata): ResultValue {
-    const result = setMetadata(metadata);
-    return result.value;
+  setMetadata(metadata: Metadata): Result {
+    return setMetadata(metadata);
   }
 
   moveCommand(previousKind: string, newKind: string, previousIndex: number, newIndex: number): ResultValue {
