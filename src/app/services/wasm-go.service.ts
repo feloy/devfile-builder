@@ -185,9 +185,8 @@ export class WasmGoService {
     return moveCommand(previousKind, newKind, previousIndex, newIndex);
   }
 
-  setDefaultCommand(command: string, group: string): ResultValue {
-    const result = setDefaultCommand(command, group);
-    return result.value;
+  setDefaultCommand(command: string, group: string): Result {
+    return setDefaultCommand(command, group);
   }
 
   unsetDefaultCommand(command: string): ResultValue {
