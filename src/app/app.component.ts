@@ -46,7 +46,6 @@ export class AppComponent implements OnInit {
   onButtonClick(content: string){
     const result = this.wasmGo.setDevfileContent(content);
     if (result.err != '') {
-      console.log(result.err);
       this.errorMessage = result.err;
     } else {
       this.errorMessage = '';
