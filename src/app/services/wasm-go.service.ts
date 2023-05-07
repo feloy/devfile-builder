@@ -150,12 +150,11 @@ export class WasmGoService {
     );
   }
 
-  addApplyCommand(name: string, cmd: ApplyCommand): ResultValue {
-    const result = addApplyCommand(
+  addApplyCommand(name: string, cmd: ApplyCommand): Result {
+    return addApplyCommand(
       name,
       cmd.component,      
     );
-    return result.value;
   }
 
   addCompositeCommand(name: string, cmd: CompositeCommand): ResultValue {

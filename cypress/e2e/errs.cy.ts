@@ -37,7 +37,7 @@ describe('devfile editor errors handling', () => {
         cy.getByDataCy('image-build-context').type('/path/to/build/context');
         cy.getByDataCy('image-dockerfile-uri').type('/path/to/dockerfile');
         cy.getByDataCy('image-create').click();
-            cy.on('window:alert', (str) => {
+        cy.on('window:alert', (str) => {
             expect(str).to.contain(`container1 already exists`)
         });
     });
@@ -53,7 +53,7 @@ describe('devfile editor errors handling', () => {
         cy.getByDataCy('resource-toggle-inlined').click();
         cy.getByDataCy('resource-manifest').type('a-resource-manifest');
         cy.getByDataCy('resource-create').click();
-                cy.on('window:alert', (str) => {
+        cy.on('window:alert', (str) => {
             expect(str).to.contain(`container1 already exists`)
         });
     });
@@ -61,7 +61,7 @@ describe('devfile editor errors handling', () => {
     it('fails when adding an exec command with an already used name', () => {
         cy.visit('http://localhost:4200');
         cy.clearDevfile();
-        cy.fixture('input/with-command.yaml').then(yaml => {
+        cy.fixture('input/with-exec-command.yaml').then(yaml => {
             cy.setDevfile(yaml);
         });
         cy.selectTab(TAB_COMMANDS);
@@ -77,5 +77,42 @@ describe('devfile editor errors handling', () => {
             expect(str).to.contain(`command1 already exists`)
         });
     });
+
+    it('fails when adding an apply command with an already used name', () => {
+        cy.visit('http://localhost:4200');
+        cy.clearDevfile();
+        cy.fixture('input/with-apply-command.yaml').then(yaml => {
+            cy.setDevfile(yaml);
+        });
+        cy.selectTab(TAB_COMMANDS);
+        cy.getByDataCy('add').click();
+        cy.getByDataCy('new-command-apply').click();
+    
+        cy.getByDataCy('command-apply-name').type('command1');
+        cy.getByDataCy('select-container').click().get('mat-option').contains('resource1').click();
+        cy.getByDataCy('command-apply-create').click();
+        cy.on('window:alert', (str) => {
+            expect(str).to.contain(`command1 already exists`)
+        });
+    });
+
+    it('fails when adding an image command with an already used name', () => {
+        cy.visit('http://localhost:4200');
+        cy.clearDevfile();
+        cy.fixture('input/with-image-command.yaml').then(yaml => {
+            cy.setDevfile(yaml);
+        });
+        cy.selectTab(TAB_COMMANDS);
+        cy.getByDataCy('add').click();
+        cy.getByDataCy('new-command-image').click();
+    
+        cy.getByDataCy('command-image-name').type('command1');
+        cy.getByDataCy('select-container').click().get('mat-option').contains('image1').click();
+        cy.getByDataCy('command-image-create').click();
+        cy.on('window:alert', (str) => {
+            expect(str).to.contain(`command1 already exists`)
+        });
+    });
 });
+
 
