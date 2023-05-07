@@ -157,13 +157,12 @@ export class WasmGoService {
     );
   }
 
-  addCompositeCommand(name: string, cmd: CompositeCommand): ResultValue {
-    const result = addCompositeCommand(
+  addCompositeCommand(name: string, cmd: CompositeCommand): Result {
+    return addCompositeCommand(
       name,
       cmd.parallel,
       cmd.commands,      
     );
-    return result.value;
   }
 
   // getFlowChart calls the wasm module to get the lifecycle of the Devfile in mermaid chart format
