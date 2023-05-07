@@ -1,4 +1,4 @@
-import { TAB_CONTAINERS, TAB_IMAGES, TAB_RESOURCES } from "./consts";
+import { TAB_COMMANDS, TAB_CONTAINERS, TAB_IMAGES, TAB_RESOURCES } from "./consts";
 
 describe('devfile editor errors handling', () => {
 
@@ -42,7 +42,7 @@ describe('devfile editor errors handling', () => {
         });
     });
 
-    it.only('fails when adding a resource with an already used name', () => {
+    it('fails when adding a resource with an already used name', () => {
         cy.visit('http://localhost:4200');
         cy.clearDevfile();
         cy.fixture('input/with-container.yaml').then(yaml => {
@@ -55,6 +55,26 @@ describe('devfile editor errors handling', () => {
         cy.getByDataCy('resource-create').click();
                 cy.on('window:alert', (str) => {
             expect(str).to.contain(`container1 already exists`)
+        });
+    });
+
+    it('fails when adding an exec command with an already used name', () => {
+        cy.visit('http://localhost:4200');
+        cy.clearDevfile();
+        cy.fixture('input/with-command.yaml').then(yaml => {
+            cy.setDevfile(yaml);
+        });
+        cy.selectTab(TAB_COMMANDS);
+        cy.getByDataCy('add').click();
+        cy.getByDataCy('new-command-exec').click();
+    
+        cy.getByDataCy('command-exec-name').type('command1');
+        cy.getByDataCy('command-exec-command-line').type('a-cmdline');
+        cy.getByDataCy('command-exec-working-dir').type('/path/to/working/dir');
+        cy.getByDataCy('select-container').click().get('mat-option').contains('container1').click();
+        cy.getByDataCy('command-exec-create').click();
+        cy.on('window:alert', (str) => {
+            expect(str).to.contain(`command1 already exists`)
         });
     });
 });
