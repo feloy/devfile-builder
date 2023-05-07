@@ -39,7 +39,10 @@ export class CommandApplyComponent {
     if (this.resourceToCreate != null && 
       this.resourceToCreate?.name == this.form.controls["component"].value) {
       const result = this.wasm.addResource(this.resourceToCreate);
-      // TODO check result error
+      if (result.err != '') {
+        alert(result.err);
+        return;
+      }
     }
 
     const newDevfile = this.wasm.addApplyCommand(this.form.value["name"], this.form.value);
