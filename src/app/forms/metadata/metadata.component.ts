@@ -46,7 +46,11 @@ export class MetadataComponent implements OnInit {
   }
 
   onSave() {
-    const newDevfile = this.wasm.setMetadata(this.form.value);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.setMetadata(this.form.value);
+    if (result.err != '') {
+      alert(result.err);
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 }
