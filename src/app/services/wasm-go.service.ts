@@ -121,8 +121,8 @@ export class WasmGoService {
     );
   }
 
-  addImage(image: Image): ResultValue {
-    const result = addImage(
+  addImage(image: Image): Result {
+    return addImage(
       image.name,
       image.imageName,
       image.args,
@@ -130,7 +130,6 @@ export class WasmGoService {
       image.rootRequired,
       image.uri,
     );
-    return result.value;
   }
 
   addResource(resource: ClusterResource): ResultValue {
