@@ -113,6 +113,21 @@ describe('devfile editor errors handling', () => {
             expect(str).to.contain(`command1 already exists`)
         });
     });
+
+    it('fails when adding a composite command with an already used name', () => {
+        cy.visit('http://localhost:4200');
+        cy.clearDevfile();
+        cy.fixture('input/with-image-command.yaml').then(yaml => {
+            cy.setDevfile(yaml);
+        });
+        cy.selectTab(TAB_COMMANDS);
+        cy.getByDataCy('add').click();
+        cy.getByDataCy('new-command-composite').click();
+    
+        cy.getByDataCy('command-composite-name').type('command1');
+        cy.getByDataCy('command-composite-create').click();
+        cy.on('window:alert', (str) => {
+            expect(str).to.contain(`command1 already exists`)
+        });
+    });
 });
-
-
