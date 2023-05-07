@@ -1,4 +1,4 @@
-import { TAB_CONTAINERS, TAB_IMAGES } from "./consts";
+import { TAB_CONTAINERS, TAB_IMAGES, TAB_RESOURCES } from "./consts";
 
 describe('devfile editor errors handling', () => {
 
@@ -25,7 +25,7 @@ describe('devfile editor errors handling', () => {
         });
     });
 
-    it.only('fails when adding an image with an already used name', () => {
+    it('fails when adding an image with an already used name', () => {
         cy.visit('http://localhost:4200');
         cy.clearDevfile();
         cy.fixture('input/with-container.yaml').then(yaml => {
@@ -38,6 +38,22 @@ describe('devfile editor errors handling', () => {
         cy.getByDataCy('image-dockerfile-uri').type('/path/to/dockerfile');
         cy.getByDataCy('image-create').click();
             cy.on('window:alert', (str) => {
+            expect(str).to.contain(`container1 already exists`)
+        });
+    });
+
+    it.only('fails when adding a resource with an already used name', () => {
+        cy.visit('http://localhost:4200');
+        cy.clearDevfile();
+        cy.fixture('input/with-container.yaml').then(yaml => {
+            cy.setDevfile(yaml);
+        });
+        cy.selectTab(TAB_RESOURCES);
+        cy.getByDataCy('resource-name').type('container1');
+        cy.getByDataCy('resource-toggle-inlined').click();
+        cy.getByDataCy('resource-manifest').type('a-resource-manifest');
+        cy.getByDataCy('resource-create').click();
+                cy.on('window:alert', (str) => {
             expect(str).to.contain(`container1 already exists`)
         });
     });

@@ -52,8 +52,12 @@ export class ResourcesComponent implements OnInit {
   }
 
   onCreated(resource: ClusterResource) {
-    const newDevfile = this.wasm.addResource(resource);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.addResource(resource);
+    if (result.err != '') {
+      alert(result.err);
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 
   scrollToBottom() {

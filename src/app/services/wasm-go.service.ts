@@ -132,13 +132,12 @@ export class WasmGoService {
     );
   }
 
-  addResource(resource: ClusterResource): ResultValue {
-    const result = addResource(
+  addResource(resource: ClusterResource): Result {
+    return addResource(
       resource.name,
       resource.inlined,
       resource.uri,
     );
-    return result.value;
   }
 
   addExecCommand(name: string, cmd: ExecCommand): ResultValue {
