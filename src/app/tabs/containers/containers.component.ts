@@ -51,8 +51,12 @@ export class ContainersComponent implements OnInit {
   }
 
   onCreated(container: Container) {
-    const newDevfile = this.wasm.addContainer(container);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.addContainer(container);
+    if (result.err != '') {
+      alert(result.err);
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 
   scrollToBottom() {

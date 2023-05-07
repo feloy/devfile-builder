@@ -38,7 +38,7 @@
 
 
 <ng-container *ngIf="!forceDisplayAdd && containers != undefined && containers.length > 0">
-    <button class="fab" mat-fab color="primary" (click)="displayAddForm()">
+    <button data-cy="add" class="fab" mat-fab color="primary" (click)="displayAddForm()">
         <mat-icon class="material-icons-outlined">add</mat-icon>
     </button>
 </ng-container>
