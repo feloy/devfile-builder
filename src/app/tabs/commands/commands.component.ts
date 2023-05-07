@@ -91,8 +91,12 @@ export class CommandsComponent {
   }
 
   moveCommand(previousKind: string, newKind: string, previousIndex: number, newIndex: number) {
-    const newDevfile = this.wasm.moveCommand(previousKind, newKind, previousIndex, newIndex);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.moveCommand(previousKind, newKind, previousIndex, newIndex);
+    if (result.err != '') {
+      alert(result.err);
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 
   enableDragAndDropChange() {
