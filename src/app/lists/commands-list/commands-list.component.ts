@@ -28,8 +28,12 @@ export class CommandsListComponent {
   }
 
   setDefault(command: string, group: string) {
-    const newDevfile = this.wasm.setDefaultCommand(command, group);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.setDefaultCommand(command, group);
+    if (result.err != '') {
+      alert(result.err);
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 
   unsetDefault(command: string) {
