@@ -37,8 +37,12 @@ export class CommandsListComponent {
   }
 
   unsetDefault(command: string) {
-    const newDevfile = this.wasm.unsetDefaultCommand(command);
-    this.state.changeDevfileYaml(newDevfile);
+    const result = this.wasm.unsetDefaultCommand(command);
+    if (result.err != '') {
+      alert(result.err);
+    } else {
+      this.state.changeDevfileYaml(result.value);
+    }
   }
 
   getCommandsByKind(commands: Command[] | undefined, kind: string ): Command[] | undefined {

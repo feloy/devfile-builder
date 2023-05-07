@@ -189,9 +189,8 @@ export class WasmGoService {
     return setDefaultCommand(command, group);
   }
 
-  unsetDefaultCommand(command: string): ResultValue {
-    const result = unsetDefaultCommand(command);
-    return result.value;
+  unsetDefaultCommand(command: string): Result {
+    return unsetDefaultCommand(command);
   }
 
   deleteCommand(command: string): Result {
