@@ -181,9 +181,8 @@ export class WasmGoService {
     return setMetadata(metadata);
   }
 
-  moveCommand(previousKind: string, newKind: string, previousIndex: number, newIndex: number): ResultValue {
-    const result = moveCommand(previousKind, newKind, previousIndex, newIndex);
-    return result.value;
+  moveCommand(previousKind: string, newKind: string, previousIndex: number, newIndex: number): Result {
+    return moveCommand(previousKind, newKind, previousIndex, newIndex);
   }
 
   setDefaultCommand(command: string, group: string): ResultValue {
