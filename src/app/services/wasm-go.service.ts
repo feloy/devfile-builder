@@ -112,14 +112,13 @@ declare const deleteResource: (resource: string) => Result;
 // The module manages a single instance of a Devfile
 export class WasmGoService {
 
-  addContainer(container: Container): ResultValue {
-    const result = addContainer(
+  addContainer(container: Container): Result {
+    return addContainer(
       container.name,
       container.image,
       container.command,
       container.args,
     );
-    return result.value;
   }
 
   addImage(image: Image): ResultValue {

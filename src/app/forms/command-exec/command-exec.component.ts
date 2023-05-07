@@ -42,7 +42,10 @@ export class CommandExecComponent {
     if (this.containerToCreate != null && 
         this.containerToCreate?.name == this.form.controls["component"].value) {
       const result = this.wasm.addContainer(this.containerToCreate);
-      // TODO check result error
+      if (result.err != '') {
+        alert(result.err);
+        return;
+      }
     }
     const newDevfile = this.wasm.addExecCommand(this.form.value["name"], this.form.value);
     this.state.changeDevfileYaml(newDevfile);
