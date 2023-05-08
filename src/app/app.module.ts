@@ -47,7 +47,7 @@ function loadWasmModule() {
   return () => {
     return new Promise<void>((resolve) => {
       const go = new Go();
-      WebAssembly.instantiateStreaming(fetch("./assets/devfile.1281a342f5c2876af89da69fa25f3680.wasm"), go.importObject).then((result) => {
+      WebAssembly.instantiateStreaming(fetch("./assets/devfile.bb58eceb4905be675dd164969df56f51.wasm"), go.importObject).then((result) => {
           go.run(result.instance);
           resolve();
       });

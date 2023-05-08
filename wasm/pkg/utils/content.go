@@ -177,10 +177,14 @@ func getContainers() ([]interface{}, error) {
 		}
 
 		result = append(result, map[string]interface{}{
-			"name":    container.Name,
-			"image":   container.ComponentUnion.Container.Image,
-			"command": commands,
-			"args":    args,
+			"name":          container.Name,
+			"image":         container.ComponentUnion.Container.Image,
+			"command":       commands,
+			"args":          args,
+			"memoryRequest": container.ComponentUnion.Container.MemoryRequest,
+			"memoryLimit":   container.ComponentUnion.Container.MemoryLimit,
+			"cpuRequest":    container.ComponentUnion.Container.CpuRequest,
+			"cpuLimit":      container.ComponentUnion.Container.CpuLimit,
 		})
 	}
 	return result, nil
