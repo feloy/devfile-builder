@@ -14,6 +14,7 @@ export type ResultValue = {
   content: string;
   metadata: Metadata;
   commands: Command[];
+  events: Events;
   containers: Container[];
   images: Image[];
   resources: ClusterResource[];
@@ -44,6 +45,13 @@ export type Command = {
   apply: ApplyCommand | undefined;
   image: ImageCommand | undefined;
   composite: CompositeCommand | undefined;
+};
+
+export type Events = {
+  preStart: string[];
+  postStart: string[];
+  preStop: string[];
+  postStop: string[];
 };
 
 export type ExecCommand = {
@@ -104,6 +112,7 @@ declare const deleteCommand: (command: string) => Result;
 declare const deleteContainer: (container: string) => Result;
 declare const deleteImage: (image: string) => Result;
 declare const deleteResource: (resource: string) => Result;
+declare const updateEvents: (event: string, commands: string[]) => Result;
 
 @Injectable({
   providedIn: 'root'
@@ -211,5 +220,9 @@ export class WasmGoService {
   deleteResource(resource: string): Result {
     const result = deleteResource(resource);
     return result;
+  }
+
+  updateEvents(event: "preStart"|"postStart"|"preStop"|"postStop", commands: string[]): Result {
+    return updateEvents(event, commands);
   }
 }

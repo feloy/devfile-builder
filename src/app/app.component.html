@@ -43,9 +43,10 @@
 
                 <mat-tab>
                     <ng-template mat-tab-label>
-                        <mat-icon class="tab-icon material-icons-outlined">storage</mat-icon>
-                        Volumes
+                        <mat-icon class="tab-icon material-icons-outlined">alarm</mat-icon>
+                        Events
                     </ng-template>
+                    <app-events></app-events>
                 </mat-tab>
 
                 <mat-tab>
@@ -71,6 +72,14 @@
                     </ng-template>
                     <app-resources></app-resources>
                 </mat-tab>
+
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <mat-icon class="tab-icon material-icons-outlined">storage</mat-icon>
+                        Volumes
+                    </ng-template>
+                </mat-tab>
+
             </mat-tab-group>
         </div>      
 

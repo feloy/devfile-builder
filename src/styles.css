@@ -5,6 +5,7 @@ body { max-width: 1060px; margin: auto; font-family: Roboto, "Helvetica Neue", s
 main { padding: 16px; background-color: #fff; }
 .spacer { flex: 1 1 auto;}
 
+mat-tab-group { width: 1028px; }
 
 mat-card-header.colored-title {
     background-color: #f4f4f4;

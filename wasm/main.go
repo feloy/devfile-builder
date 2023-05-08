@@ -37,5 +37,7 @@ func main() {
 	js.Global().Set("deleteImage", js.FuncOf(exports.DeleteImageWrapper))
 	js.Global().Set("deleteResource", js.FuncOf(exports.DeleteResourceWrapper))
 
+	js.Global().Set("updateEvents", js.FuncOf(exports.UpdateEventsWrapper))
+
 	<-make(chan bool)
 }
