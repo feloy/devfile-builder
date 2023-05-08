@@ -39,5 +39,6 @@ func main() {
 
 	js.Global().Set("updateEvents", js.FuncOf(exports.UpdateEventsWrapper))
 
+	js.Global().Set("isQuantityValid", js.FuncOf(exports.IsQuantityValidWrapper))
 	<-make(chan bool)
 }

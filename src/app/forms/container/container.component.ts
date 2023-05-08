@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { PATTERN_COMPONENT_ID } from '../patterns';
-import { Container } from 'src/app/services/wasm-go.service';
+import { Container, WasmGoService } from 'src/app/services/wasm-go.service';
 
 @Component({
   selector: 'app-container',
@@ -15,12 +15,21 @@ export class ContainerComponent {
 
   form: FormGroup;
 
-  constructor() {
+  quantityErrMsgMemory = 'Numeric value, with optional unit Ki, Mi, Gi, Ti, Pi, Ei';
+  quantityErrMsgCPU = 'Numeric value, with optional unit m, k, M, G, T, P, E';
+
+  constructor(
+    private wasm: WasmGoService,
+  ) {
     this.form = new FormGroup({
       name: new FormControl("", [Validators.required, Validators.pattern(PATTERN_COMPONENT_ID)]),
       image: new FormControl("", [Validators.required]),
       command: new FormControl([]),
       args: new FormControl([]),
+      memoryRequest: new FormControl("", [this.isQuantity()]),
+      memoryLimit: new FormControl("", [this.isQuantity()]),
+      cpuRequest: new FormControl("", [this.isQuantity()]),
+      cpuLimit: new FormControl("", [this.isQuantity()]),
     })
   }
 
@@ -31,4 +40,20 @@ export class ContainerComponent {
   cancel() {
     this.canceled.emit();
   }
+
+  isQuantity():  ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const val = control.value;
+      if (val == '') {
+        return null;
+      }
+      const valid = this.wasm.isQuantityValid(val);
+      if (!valid) {
+        return {
+          "isQuantity": false,
+        }
+      }
+      return null;
+    };
+  }   
 }

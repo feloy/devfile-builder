@@ -79,6 +79,10 @@ export type Container = {
   image: string;
   command: string[];
   args: string[];
+  memoryRequest: string;
+  memoryLimit: string;
+  cpuRequest: string;
+  cpuLimit: string;
 };
 
 export type Image = {
@@ -96,7 +100,7 @@ export type ClusterResource = {
   uri: string;
 };
 
-declare const addContainer: (name: string, image: string, command: string[], args: string[]) => Result;
+declare const addContainer: (name: string, image: string, command: string[], args: string[], memReq: string, memLimit: string, cpuReq: string, cpuLimit: string) => Result;
 declare const addImage: (name: string, imageName: string, args: string[], buildContext: string, rootRequired: boolean, uri: string) => Result;
 declare const addResource: (name: string, inlined: string, uri: string) => Result;
 declare const addExecCommand: (name: string, component: string, commmandLine: string, workingDir: string, hotReloadCapable: boolean) => Result;
@@ -113,6 +117,7 @@ declare const deleteContainer: (container: string) => Result;
 declare const deleteImage: (image: string) => Result;
 declare const deleteResource: (resource: string) => Result;
 declare const updateEvents: (event: string, commands: string[]) => Result;
+declare const isQuantityValid: (quantity: string) => Boolean;
 
 @Injectable({
   providedIn: 'root'
@@ -127,6 +132,10 @@ export class WasmGoService {
       container.image,
       container.command,
       container.args,
+      container.memoryRequest,
+      container.memoryLimit,
+      container.cpuRequest,
+      container.cpuLimit,
     );
   }
 
@@ -224,5 +233,9 @@ export class WasmGoService {
 
   updateEvents(event: "preStart"|"postStart"|"preStop"|"postStop", commands: string[]): Result {
     return updateEvents(event, commands);
+  }
+
+  isQuantityValid(quantity: string): Boolean {
+    return isQuantityValid(quantity);
   }
 }
