@@ -20,7 +20,6 @@ export class ResourcesComponent implements OnInit {
   ngOnInit() {
     const that = this;
     this.state.state.subscribe(async newContent => {
-      console.log(newContent);
       that.resources = newContent?.resources;
       if (this.resources == null) {
         return

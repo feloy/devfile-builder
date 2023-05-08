@@ -53,6 +53,7 @@ func GetContent() (map[string]interface{}, error) {
 		"content":    string(result),
 		"metadata":   getMetadata(),
 		"commands":   commands,
+		"events":     getEvents(),
 		"containers": containers,
 		"images":     images,
 		"resources":  resources,
@@ -141,6 +142,17 @@ func getCommands() ([]interface{}, error) {
 		result = append(result, newCommand)
 	}
 	return result, nil
+}
+
+func getEvents() map[string]interface{} {
+	events := global.Devfile.Data.GetEvents()
+
+	return map[string]interface{}{
+		"preStart":  StringArrayToInterfaceArray(events.PreStart),
+		"postStart": StringArrayToInterfaceArray(events.PostStart),
+		"preStop":   StringArrayToInterfaceArray(events.PreStop),
+		"postStop":  StringArrayToInterfaceArray(events.PostStop),
+	}
 }
 
 func getContainers() ([]interface{}, error) {

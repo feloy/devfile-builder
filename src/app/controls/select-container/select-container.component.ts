@@ -36,8 +36,6 @@ export class SelectContainerComponent implements ControlValueAccessor {
   onSelectChange(v: string) {
     if (v != "!") {
       this.onChange(v);
-    } else {
-      console.log("new "+this.label+"!");
     }
     this.createNew.emit(v == "!");
   }

@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -37,6 +38,8 @@ import { ImageComponent } from './forms/image/image.component';
 import { CommandImageComponent } from './forms/command-image/command-image.component';
 import { CommandsListComponent } from './lists/commands-list/commands-list.component';
 import { MultiCommandComponent } from './controls/multi-command/multi-command.component';
+import { EventsComponent } from './tabs/events/events.component';
+import { ChipsEventsComponent } from './controls/chips-events/chips-events.component';
 
 declare const Go: any;
 
@@ -71,6 +74,8 @@ function loadWasmModule() {
     CommandImageComponent,
     CommandsListComponent,
     MultiCommandComponent,
+    EventsComponent,
+    ChipsEventsComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,6 +85,7 @@ function loadWasmModule() {
     
     DragDropModule,
     
+    MatAutocompleteModule,
     MatButtonModule,
     MatButtonToggleModule,
     MatCardModule,
