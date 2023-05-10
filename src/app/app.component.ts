@@ -3,6 +3,7 @@ import { WasmGoService } from './services/wasm-go.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MermaidService } from './services/mermaid.service';
 import { StateService } from './services/state.service';
+import { MatIconRegistry } from "@angular/material/icon";
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,16 @@ export class AppComponent implements OnInit {
 
   constructor(
     protected sanitizer: DomSanitizer,
+    private matIconRegistry: MatIconRegistry,
     private wasmGo: WasmGoService,
     private mermaid: MermaidService,
     private state: StateService,
-  ) {}
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      `github`,
+      this.sanitizer.bypassSecurityTrustResourceUrl(`../assets/github-24.svg`)
+    );
+  }
 
   ngOnInit() {
     const devfile = this.state.getDevfile();
