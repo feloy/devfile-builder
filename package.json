@@ -9,7 +9,7 @@
     "test": "ng test",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "deploy": "ng deploy --base-href='/devfile-builder/'"
+    "deploy": "ng deploy --base-href='/'"
   },
   "private": true,
   "dependencies": {
