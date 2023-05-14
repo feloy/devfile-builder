@@ -41,3 +41,12 @@ button { margin-right: 8px; }
     bottom: 16px;
     right: calc((100vw - 1060px)/2 - 15px + 16px);
 }
+
+#loading {
+    position: fixed;
+    top: 10px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}

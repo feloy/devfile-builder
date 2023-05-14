@@ -30,6 +30,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    const loading = document.getElementById("loading");
+    if (loading != null) {
+      loading.style.visibility = "hidden";
+    }
+
     const devfile = this.state.getDevfile();
     if (devfile != null) {
       this.onButtonClick(devfile);
