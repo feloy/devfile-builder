@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/devfile/api/v2 v2.2.0
 	github.com/devfile/library/v2 v2.2.0
-	github.com/feloy/devfile-lifecycle v0.0.0-20230313085338-2c24a8e5b6b1
+	github.com/feloy/devfile-lifecycle v0.0.0-20230515183001-11d088157da2
 	github.com/google/go-cmp v0.5.6
 	k8s.io/utils v0.0.0-20210722164352-7f3ee0f31471
 )
