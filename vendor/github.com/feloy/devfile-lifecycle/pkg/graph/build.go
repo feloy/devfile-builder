@@ -1,7 +1,6 @@
 package graph
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/devfile/api/v2/pkg/apis/workspaces/v1alpha2"
@@ -25,19 +24,35 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 		return nil, err
 	}
 
-	if len(containers) != 1 {
-		return nil, errors.New("more than one container, not supported yet")
-	}
-
-	container := containers[0]
+	singleContainer := len(containers) == 1
 
 	start := g.AddNode("start")
 
-	containerNode := g.AddNode(
-		container.Name,
-		"container: "+container.Name,
-		"image: "+container.Container.Image,
-	)
+	var containerNode *Node
+	var containerName string
+	if len(containers) == 1 {
+		container := containers[0]
+		containerName = container.Name
+		containerNode = g.AddNode(
+			containerName,
+			"container: "+container.Name,
+			"image: "+container.Container.Image,
+		)
+	} else {
+		texts := make([]string, 0, 2*len(containers))
+		for _, container := range containers {
+			texts = append(
+				texts,
+				"container: "+container.Name,
+				"image: "+container.Container.Image,
+			)
+		}
+		containerName = "containers"
+		containerNode = g.AddNode(
+			containerName,
+			texts...,
+		)
+	}
 	g.EntryNodeID = containerNode.ID
 
 	_ = g.AddEdge(
@@ -47,7 +62,7 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 	)
 
 	syncNodeStart := g.AddNode(
-		"sync-all-"+container.Name,
+		"sync-all-"+containerName,
 		"Sync All Sources",
 	)
 
@@ -95,7 +110,7 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 		return g, nil
 	}
 
-	buildNodeStart, buildNodeEnd, err := addCommand(g, devfileData, defaultBuildCommand, previousNode, nextText)
+	buildNodeStart, buildNodeEnd, err := addCommand(g, devfileData, defaultBuildCommand, previousNode, singleContainer, nextText)
 	if err != nil {
 		return nil, err
 	}
@@ -135,7 +150,7 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 			edgeText += "with run"
 		}
 
-		runNodeStart, runNodeEnd, err := addCommand(g, devfileData, defaultRunCommand, buildNodeEnd, edgeText)
+		runNodeStart, runNodeEnd, err := addCommand(g, devfileData, defaultRunCommand, buildNodeEnd, singleContainer, edgeText)
 		if err != nil {
 			return nil, err
 		}
@@ -143,14 +158,17 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 		lines := []string{
 			"Expose ports",
 		}
-		for _, endpoint := range container.Container.Endpoints {
-			if !debug && dftools.IsDebugPort(endpoint) {
-				continue
+		for _, container := range containers {
+			for _, endpoint := range container.Container.Endpoints {
+				if !debug && dftools.IsDebugPort(endpoint) {
+					continue
+				}
+				lines = append(lines, fmt.Sprintf("%s: %d", endpoint.Name, endpoint.TargetPort))
 			}
-			lines = append(lines, fmt.Sprintf("%s: %d", endpoint.Name, endpoint.TargetPort))
 		}
+
 		exposeNode := g.AddNode(
-			container.Name+"-"+runNodeStart.ID+"-expose",
+			containerName+"-"+runNodeStart.ID+"-expose",
 			lines...,
 		)
 
@@ -178,7 +196,7 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 
 		/* Add "stop container" node */
 
-		stopNode := g.AddNode(container.Name+"-stop", "Stop container", "container: "+container.Name)
+		stopNode := g.AddNode(containerName+"-stop", "Stop containers")
 
 		/* Add "user quits" edge */
 
@@ -188,11 +206,11 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 			nextText,
 		)
 
-		_, syncNodeChangedExists := g.nodes["sync-modified-"+container.Name]
+		_, syncNodeChangedExists := g.nodes["sync-modified-"+containerName]
 
 		// Add "Sync" node
 		syncNodeChanged := g.AddNode(
-			"sync-modified-"+container.Name,
+			"sync-modified-"+containerName,
 			"Sync Modified Sources",
 		)
 
@@ -247,7 +265,7 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 	}
 
 	if defaultDeployCommand.Id != "" {
-		_, lastNode, err := addCommand(g, devfileData, defaultDeployCommand, start, "deploy")
+		_, lastNode, err := addCommand(g, devfileData, defaultDeployCommand, start, singleContainer, "deploy")
 		if err != nil {
 			return nil, err
 		}
@@ -267,12 +285,12 @@ func Build(devfileData data.DevfileData) (*Graph, error) {
 	return g, nil
 }
 
-func addCommand(g *Graph, devfileData data.DevfileData, command v1alpha2.Command, nodeBefore *Node, text ...string) (start *Node, end *Node, err error) {
+func addCommand(g *Graph, devfileData data.DevfileData, command v1alpha2.Command, nodeBefore *Node, singleContainer bool, text ...string) (start *Node, end *Node, err error) {
 	if command.Exec != nil {
-		return addExecCommand(g, command, nodeBefore, text...)
+		return addExecCommand(g, command, nodeBefore, singleContainer, text...)
 	}
 	if command.Composite != nil {
-		return addCompositeCommand(g, devfileData, command, nodeBefore, text...)
+		return addCompositeCommand(g, devfileData, command, nodeBefore, singleContainer, text...)
 	}
 	if command.Apply != nil {
 		return addApplyCommand(g, command, nodeBefore, text...)
@@ -280,10 +298,14 @@ func addCommand(g *Graph, devfileData data.DevfileData, command v1alpha2.Command
 	return nil, nil, fmt.Errorf("command type not implemented for %s", command.Id)
 }
 
-func addExecCommand(g *Graph, command v1alpha2.Command, nodeBefore *Node, text ...string) (*Node, *Node, error) {
+func addExecCommand(g *Graph, command v1alpha2.Command, nodeBefore *Node, singleContainer bool, text ...string) (*Node, *Node, error) {
+	texts := []string{"command: " + command.Id}
+	if !singleContainer {
+		texts = append(texts, "container: "+command.Exec.Component)
+	}
 	node := g.AddNode(
 		command.Id,
-		"command: "+command.Id,
+		texts...,
 	)
 
 	_ = g.AddEdge(
@@ -312,7 +334,7 @@ func addApplyCommand(g *Graph, command v1alpha2.Command, nodeBefore *Node, text 
 
 }
 
-func addCompositeCommand(g *Graph, devfileData data.DevfileData, command v1alpha2.Command, nodeBefore *Node, text ...string) (*Node, *Node, error) {
+func addCompositeCommand(g *Graph, devfileData data.DevfileData, command v1alpha2.Command, nodeBefore *Node, singleContainer bool, text ...string) (*Node, *Node, error) {
 	previousNode := nodeBefore
 	var firstNode *Node
 	for _, subcommandName := range command.Composite.Commands {
@@ -326,7 +348,7 @@ func addCompositeCommand(g *Graph, devfileData data.DevfileData, command v1alpha
 			return nil, nil, fmt.Errorf("command not found: %s", subcommandName)
 		}
 		var first *Node
-		first, previousNode, err = addCommand(g, devfileData, subcommands[0], previousNode, text...)
+		first, previousNode, err = addCommand(g, devfileData, subcommands[0], previousNode, singleContainer, text...)
 		if err != nil {
 			return nil, nil, err
 		}

@@ -155,7 +155,7 @@ github.com/evanphx/json-patch
 # github.com/fatih/color v1.7.0
 ## explicit
 github.com/fatih/color
-# github.com/feloy/devfile-lifecycle v0.0.0-20230313085338-2c24a8e5b6b1
+# github.com/feloy/devfile-lifecycle v0.0.0-20230515183001-11d088157da2
 ## explicit; go 1.19
 github.com/feloy/devfile-lifecycle/pkg/dftools
 github.com/feloy/devfile-lifecycle/pkg/graph
